@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b5phb6gdgexm3"
-path="res://.godot/imported/dough.glb-ca3a116f0d58c08116d7a3c345d3a8bc.scn"
+uid="uid://kjsxi2vjt07c"
+path="res://.godot/imported/steak.glb-3a919b5a813cd13f6a7e20eff69a1582.scn"
 
 [deps]
 
-source_file="res://assets/models/kitchen/raw_foods/dough.glb"
-dest_files=["res://.godot/imported/dough.glb-ca3a116f0d58c08116d7a3c345d3a8bc.scn"]
+source_file="res://assets/models/kitchen/raw_foods/steak.glb"
+dest_files=["res://.godot/imported/steak.glb-3a919b5a813cd13f6a7e20eff69a1582.scn"]
 
 [params]
 
@@ -36,17 +36,17 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 materials/extract=0
 materials/extract_format=0
-materials/extract_path="res://assets/models/kitchen/raw_foods"
+materials/extract_path=""
 _subresources={
 "meshes": {
-"dough_Node-Mesh": {
+"Root Scene_food_ingredient_steak": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 20.0,
 "save_to_file/enabled": true,
-"save_to_file/fallback_path": "res://assets/models/kitchen/raw_foods/dough.res",
-"save_to_file/path": "uid://djgndgy3pwiji"
+"save_to_file/fallback_path": "res://assets/models/kitchen/raw_foods/steak.res",
+"save_to_file/path": "uid://dnb64db67pyl8"
 }
 }
 }

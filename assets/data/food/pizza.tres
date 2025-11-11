@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Food" load_steps=3 format=3 uid="uid://xv0popbmyh0m"]
+
+[ext_resource type="Script" uid="uid://dqh6hctw7yuub" path="res://assets/data/food/food.gd" id="1_6lwm0"]
+[ext_resource type="ArrayMesh" uid="uid://8hlnebpcqmri" path="res://assets/models/kitchen/foods/pizza.res" id="1_ma6f5"]
+
+[resource]
+script = ExtResource("1_6lwm0")
+name = "Pizza"
+mesh = ExtResource("1_ma6f5")
+mesh_scale = Vector3(0.6, 0.6, 0.6)
+metadata/_custom_type_script = "uid://dqh6hctw7yuub"

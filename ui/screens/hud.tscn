@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b3ingre68ts7r"]
+[gd_scene load_steps=3 format=3 uid="uid://b3ingre68ts7r"]
 
 [ext_resource type="PackedScene" uid="uid://cbimj6baogiq4" path="res://ui/components/balance_bar.tscn" id="1_7tb4a"]
+[ext_resource type="Script" uid="uid://b57oxu80r7v8g" path="res://ui/screens/hud.gd" id="2_hud"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_hud")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,7 +30,7 @@ alignment = 1
 
 [node name="Score" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-text = "🪙 503"
+text = "🪙 0"
 
 [node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2

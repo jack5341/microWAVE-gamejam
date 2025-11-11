@@ -46,11 +46,15 @@ radius = 0.192
 height = 0.003
 material = SubResource("StandardMaterial3D_xxcka")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plate"]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 15, 0, 0, 0)
+
 [node name="Light" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.15453815, 0)
 light_specular = 0.0
 
 [node name="Hud" parent="." instance=ExtResource("4_2katx")]
+script = null
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -0.5163981)

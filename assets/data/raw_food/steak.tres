@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RawFood" load_steps=3 format=3 uid="uid://dg08vuxhag7xp"]
+
+[ext_resource type="ArrayMesh" uid="uid://crfgs2sw1hh1y" path="res://assets/models/kitchen/raw_foods/steak.res" id="1_v7nms"]
+[ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
+
+[resource]
+script = ExtResource("1_x6geo")
+name = "Steak"
+mesh = ExtResource("1_v7nms")
+mesh_scale = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://dkp0ct66kh5lp"
