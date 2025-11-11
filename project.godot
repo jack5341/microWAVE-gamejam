@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="PirateSurvive"
+config/name="gamejam-prototype-1"
+run/main_scene="uid://cw8mjn832rl2y"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,10 +20,6 @@ config/icon="res://icon.svg"
 Signalbus="*res://core/autoload/signalbus.gd"
 Constant="*res://core/autoload/constant.gd"
 AudioManager="*res://core/managers/audio_manager.gd"
-
-[global_group]
-
-player=""
 
 [rendering]
 

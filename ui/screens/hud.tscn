@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://b3ingre68ts7r"]
+[gd_scene load_steps=2 format=3 uid="uid://b3ingre68ts7r"]
+
+[ext_resource type="PackedScene" uid="uid://cbimj6baogiq4" path="res://ui/components/balance_bar.tscn" id="1_7tb4a"]
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -7,3 +9,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_direction = 1
+layout_mode = 2
+alignment = 1
+
+[node name="Score" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "🪙 503"
+
+[node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Countdown" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "12:20"
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="BalanceBar" parent="MarginContainer/CenterContainer" instance=ExtResource("1_7tb4a")]
+layout_mode = 2
