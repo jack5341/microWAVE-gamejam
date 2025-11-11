@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://colufreb8ts0x"]
+
+[ext_resource type="Script" uid="uid://cj2rqxk1cjwh2" path="res://gameplay/entities/ship_parts/ship_parts.gd" id="1_ddv3n"]
+[ext_resource type="Texture2D" uid="uid://dti6qqmj1vp6j" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="1_oys41"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ddv3n"]
+points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_esbga"]
+albedo_texture = ExtResource("1_oys41")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lkb3v"]
+material = SubResource("StandardMaterial3D_esbga")
+
+[node name="ShipParts" type="Area3D"]
+script = ExtResource("1_ddv3n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_ddv3n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_lkb3v")

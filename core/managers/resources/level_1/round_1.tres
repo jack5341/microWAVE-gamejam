@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="RoundConfig" load_steps=4 format=3 uid="uid://bwchaprsrx6uu"]
+
+[ext_resource type="Script" uid="uid://drfl4dekinmjy" path="res://core/managers/resources/round_config.gd" id="1_4f217"]
+[ext_resource type="Script" uid="uid://bnusqlwno8h3" path="res://core/managers/resources/wave_config.gd" id="2_w6may"]
+[ext_resource type="Resource" uid="uid://b5yixtet72g4l" path="res://core/managers/resources/level_1/wave_1.tres" id="3_w6may"]
+
+[resource]
+script = ExtResource("1_4f217")
+waves = Array[ExtResource("2_w6may")]([ExtResource("3_w6may")])
+metadata/_custom_type_script = "uid://drfl4dekinmjy"

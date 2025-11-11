@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="LevelConfig" load_steps=4 format=3 uid="uid://d1jpmuk3vhlc0"]
+
+[ext_resource type="Script" uid="uid://drfl4dekinmjy" path="res://core/managers/resources/round_config.gd" id="1_03txc"]
+[ext_resource type="Resource" uid="uid://bwchaprsrx6uu" path="res://core/managers/resources/level_1/round_1.tres" id="2_8b5ao"]
+[ext_resource type="Script" uid="uid://dyfyo32iyba7c" path="res://core/managers/resources/level_config.gd" id="2_daekf"]
+
+[resource]
+script = ExtResource("2_daekf")
+rounds = Array[ExtResource("1_03txc")]([ExtResource("2_8b5ao")])
+metadata/_custom_type_script = "uid://dyfyo32iyba7c"

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WaveConfig" load_steps=2 format=3 uid="uid://b5yixtet72g4l"]
+
+[ext_resource type="Script" uid="uid://bnusqlwno8h3" path="res://core/managers/resources/wave_config.gd" id="1_xhcwj"]
+
+[resource]
+script = ExtResource("1_xhcwj")
+metadata/_custom_type_script = "uid://bnusqlwno8h3"

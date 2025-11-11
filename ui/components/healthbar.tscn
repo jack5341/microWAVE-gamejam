@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://drwe6u1uerteh"]
+
+[ext_resource type="Script" uid="uid://babxb7thx8sm" path="res://ui/components/healthbar.gd" id="1_xqjwt"]
+
+[node name="Healthbar" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xqjwt")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 27.0
