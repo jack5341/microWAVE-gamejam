@@ -1,8 +1,8 @@
 extends Control
 
-@onready var score_label: Label = $MarginContainer/HBoxContainer/Score
-@onready var countdown_label: Label = $MarginContainer/HBoxContainer/Countdown
-@onready var finish_hint: Label = $MarginContainer/FinishHint
+@onready var score_label: Label = $TopBar/HBoxContainer/Score
+@onready var countdown_label: Label = $TopBar/HBoxContainer/Countdown
+@onready var hint_bar: Label = $HintBar/FinishHint
 
 func _ready() -> void:
 	_update_score(Global.score)
@@ -28,6 +28,6 @@ func _update_time(seconds: int) -> void:
 	countdown_label.text = "%02d:%02d" % [mm, ss]
 
 func _on_waiting_for_finish_changed(active: bool) -> void:
-	if finish_hint == null:
+	if hint_bar == null:
 		return
-	finish_hint.visible = active
+	hint_bar.visible = active

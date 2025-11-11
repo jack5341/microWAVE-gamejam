@@ -29,11 +29,11 @@ shader = ExtResource("6_psx")
 shader_parameter/resolution_x = 320
 shader_parameter/resolution_y = 240
 shader_parameter/color_bit_depth = 5
-shader_parameter/dither_strength = 0.09
+shader_parameter/dither_strength = 0.03
 shader_parameter/jitter_amount = 0.0
 shader_parameter/jitter_speed = 0.0
 shader_parameter/jitter_frequency = -0.04
-shader_parameter/chromatic_aberration_strength = 0.0050000002375
+shader_parameter/chromatic_aberration_strength = 0.0
 shader_parameter/vignette_strength = 0.8
 shader_parameter/vignette_radius = 0.9
 

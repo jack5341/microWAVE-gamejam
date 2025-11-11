@@ -64,9 +64,10 @@ func _on_timer_timeout() -> void:
 				in_plate_raw_food.scale = cooked.mesh_scale
 				# Small vertical nudge to avoid z-fighting with plate, similar to previous behavior
 				in_plate_raw_food.position = cooked.mesh_position + Vector3(0.0, 0.01, 0.0)
-			Global.score += 1
-			Signalbus.score_changed.emit(Global.score)
+			Global.score += 10
 			Signalbus.food_cooked.emit(cooked)
+			Signalbus.score_changed.emit(Global.score)
+			
 	# Remove the raw resource reference; keep the cooked mesh visible until next cycle
 	what_is_inside = null
 	# Always notify that the cooking cycle is completed so the queue can wait for Finish

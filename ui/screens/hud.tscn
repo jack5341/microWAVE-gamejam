@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3ingre68ts7r"]
+[gd_scene load_steps=5 format=3 uid="uid://b3ingre68ts7r"]
 
 [ext_resource type="PackedScene" uid="uid://cbimj6baogiq4" path="res://ui/components/balance_bar.tscn" id="1_7tb4a"]
 [ext_resource type="Script" uid="uid://b57oxu80r7v8g" path="res://ui/screens/hud.gd" id="2_hud"]
+[ext_resource type="FontFile" uid="uid://dprhoem533dxi" path="res://assets/typography/Jersey15-Regular.ttf" id="2_l1baa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_l1baa"]
+font = ExtResource("2_l1baa")
+font_size = 32
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -12,7 +17,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_hud")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TopBar" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -23,34 +28,52 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar"]
 layout_direction = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Score" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="Score" type="Label" parent="TopBar/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_l1baa")
 theme_override_font_sizes/font_size = 32
-text = "🪙 0"
+text = "🪙 51230281308213"
 
-[node name="Spacer" type="Control" parent="MarginContainer/HBoxContainer"]
+[node name="Spacer" type="Control" parent="TopBar/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Countdown" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="Countdown" type="Label" parent="TopBar/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_l1baa")
 theme_override_font_sizes/font_size = 32
 text = "12:20"
 
-[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="TopBar"]
 layout_mode = 2
 
-[node name="BalanceBar" parent="MarginContainer/CenterContainer" instance=ExtResource("1_7tb4a")]
+[node name="BalanceBar" parent="TopBar/CenterContainer" instance=ExtResource("1_7tb4a")]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="FinishHint" type="Label" parent="MarginContainer"]
+[node name="HintBar" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -97.0
+offset_top = -32.666668
+offset_right = 97.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="FinishHint" type="Label" parent="HintBar"]
 visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Press F to finish"
+label_settings = SubResource("LabelSettings_l1baa")
+horizontal_alignment = 1
