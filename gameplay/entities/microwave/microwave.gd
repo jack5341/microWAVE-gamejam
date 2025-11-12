@@ -3,6 +3,12 @@ class_name Microwave extends Node3D
 @export var what_is_inside: RawFood = null
 @export var temperature: int = 0
 @export var started: bool = false
+@export var green_cook_rate: float = 1.0
+@export var blue_uncook_rate: float = 0.75
+@export var red_cook_rate: float = 1.5
+@export var undercook_weight: float = 0.75
+@export var burn_weight: float = 0.25
+@export var burn_threshold: float = 2.5
 
 @onready var plate: CSGCylinder3D = $Plate
 @onready var light: SpotLight3D = $Light
@@ -13,6 +19,10 @@ class_name Microwave extends Node3D
 var rotation_speed: float = 90.0  # degrees per second
 var _session_over: bool = false
 var _time_accumulator: float = 0.0
+var _remaining_time: float = 0.0
+var _initial_time: float = 0.0
+var _burn_level: float = 0.0
+var _current_zone: int = 0
 
 func _ready() -> void:
 	# Setup timer
@@ -23,11 +33,16 @@ func _ready() -> void:
 
 	if not Signalbus.request_raw_food_cook.is_connected(_on_request_raw_food_cook):
 		Signalbus.request_raw_food_cook.connect(_on_request_raw_food_cook)
+	if not Signalbus.balance_zone_changed.is_connected(_on_balance_zone_changed):
+		Signalbus.balance_zone_changed.connect(_on_balance_zone_changed)
 
 func _process(delta: float) -> void:
 	_handle_session_timer(delta)
+	_handle_cook_progress(delta)
 	_handle_rotate_plate(delta)
 	_handle_light(delta)
+	if started and what_is_inside != null and Input.is_action_just_pressed("finish"):
+		_finalize_cooking()
 
 func _handle_rotate_plate(delta: float) -> void:
 	if started and what_is_inside != null:
@@ -36,6 +51,13 @@ func _handle_rotate_plate(delta: float) -> void:
 func _handle_light(_delta: float) -> void:
 	if started:
 		light.visible = true
+		match _current_zone:
+			-1:
+				light.light_color = Color(0.2, 0.4, 0.9)
+			0:
+				light.light_color = Color(0.2, 0.8, 0.3)
+			1:
+				light.light_color = Color(1.0, 0.25, 0.2)
 	else:
 		light.visible = false
 
@@ -51,10 +73,19 @@ func _on_request_raw_food_cook(raw: RawFood) -> void:
 	in_plate_raw_food.mesh = what_is_inside.mesh
 	in_plate_raw_food.scale = what_is_inside.mesh_scale
 	in_plate_raw_food.position = what_is_inside.mesh_position
+	# Clear any previous visual overrides/tints
+	if is_instance_valid(in_plate_raw_food):
+		in_plate_raw_food.material_override = null
 	started = true
 	temperature = raw.raw_temprature
+	_remaining_time = max(0.0, raw.time_to_cook)
+	_initial_time = _remaining_time
+	_burn_level = 0.0
+	# Set balance bar difficulty mapped from item (1..3)
+	Signalbus.set_balance_bar_difficulty.emit(raw.difficulty_to_cook)
+	# Stop timer-based completion; we handle progress in _process now
 	if timer:
-		timer.start(max(0.0, raw.time_to_cook))
+		timer.stop()
 
 func _on_timer_timeout() -> void:
 	started = false
@@ -101,3 +132,72 @@ func _end_session() -> void:
 			hud_layer.add_child(overlay)
 		else:
 			add_child(overlay)
+
+func _on_balance_zone_changed(zone: int) -> void:
+	_current_zone = zone
+
+func _handle_cook_progress(delta: float) -> void:
+	if not started or what_is_inside == null:
+		return
+	match _current_zone:
+		-1:
+			_remaining_time += delta * blue_uncook_rate
+		0:
+			_remaining_time -= delta * green_cook_rate
+		1:
+			_remaining_time -= delta * red_cook_rate
+			_burn_level += delta
+	_remaining_time = clamp(_remaining_time, 0.0, max(_initial_time * 2.0, _remaining_time))
+	if _remaining_time <= 0.0:
+		_finalize_cooking()
+
+func _finalize_cooking() -> void:
+	started = false
+	if what_is_inside != null:
+		var cooked: Food = what_is_inside.food
+		if cooked != null:
+			if is_instance_valid(in_plate_raw_food):
+				in_plate_raw_food.mesh = cooked.mesh
+				in_plate_raw_food.scale = cooked.mesh_scale
+				in_plate_raw_food.position = cooked.mesh_position + Vector3(0.0, 0.01, 0.0)
+			# Compute intensities for visuals and score
+			var raw_intensity01: float = clamp(_remaining_time / max(_initial_time, 0.0001), 0.0, 1.0)
+			var burn_intensity01: float = clamp(_burn_level / burn_threshold, 0.0, 1.0)
+			_apply_finish_visual(raw_intensity01, burn_intensity01, cooked)
+			var undercook_penalty: float = clamp(_remaining_time / max(_initial_time, 0.0001), 0.0, 2.0)
+			var burn_penalty: float = clamp(_burn_level / burn_threshold, 0.0, 1.0)
+			var quality_ratio: float = clamp(1.0 - (undercook_weight * undercook_penalty + burn_weight * burn_penalty), 0.0, 1.0)
+			var points: int = int(round(10.0 * quality_ratio))
+			Global.score += max(0, points)
+			Signalbus.food_cooked.emit(cooked)
+			Signalbus.score_changed.emit(Global.score)
+	what_is_inside = null
+	Signalbus.cooking_cycle_completed.emit()
+
+func _apply_finish_visual(raw_intensity: float, burn_intensity: float, cooked: Food) -> void:
+	if not is_instance_valid(in_plate_raw_food) or cooked == null or cooked.mesh == null:
+		return
+	var apply_burn: bool = burn_intensity > raw_intensity and burn_intensity > 0.05
+	var apply_raw: bool = raw_intensity >= burn_intensity and raw_intensity > 0.05
+	if not apply_burn and not apply_raw:
+		return
+	var src_mesh: ArrayMesh = cooked.mesh
+	var dupe_mesh: ArrayMesh = src_mesh.duplicate()
+	if dupe_mesh == null:
+		return
+	var surface_count: int = dupe_mesh.get_surface_count()
+	for i in range(surface_count):
+		var base_mat: Material = dupe_mesh.surface_get_material(i)
+		var new_mat: StandardMaterial3D = null
+		if base_mat != null and base_mat is StandardMaterial3D:
+			new_mat = base_mat.duplicate()
+		else:
+			new_mat = StandardMaterial3D.new()
+		if apply_burn:
+			var d: float = clamp(1.0 - 0.7 * burn_intensity, 0.0, 1.0)
+			new_mat.albedo_color = Color(d, d, d, 1.0)
+		elif apply_raw:
+			var blue_tint: Color = Color(0.7, 0.85, 1.0, 1.0)
+			new_mat.albedo_color = Color(1, 1, 1, 1.0).lerp(blue_tint, raw_intensity)
+		dupe_mesh.surface_set_material(i, new_mat)
+	in_plate_raw_food.mesh = dupe_mesh

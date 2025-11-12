@@ -2,6 +2,7 @@ extends Control
 class_name BalanceBar
 
 enum Difficulty { EASY, MEDIUM, HARD }
+enum Zone { BLUE = -1, GREEN = 0, RED = 1 }
 @export var difficulty: Difficulty = Difficulty.MEDIUM: set = set_difficulty, get = get_difficulty
 @export var zone_width_ratio: float = 0.35: set = set_zone_width_ratio, get = get_zone_width_ratio
 @export var return_speed_ratio: float = 0.25
@@ -22,6 +23,7 @@ var bounce_ratio: float = 0.18
 var _space_was_pressed: bool = false
 var _is_bouncing: bool = false
 var _bounce_tween: Tween = null
+var _current_zone: int = Zone.BLUE
 
 func _ready() -> void:
 	# Start from far left
@@ -31,6 +33,8 @@ func _ready() -> void:
 	_update_zone_bounds()
 	_update_arrow_position()
 	set_process(true)
+	if not Signalbus.set_balance_bar_difficulty.is_connected(_on_set_balance_bar_difficulty):
+		Signalbus.set_balance_bar_difficulty.connect(_on_set_balance_bar_difficulty)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
@@ -49,6 +53,7 @@ func _process(delta: float) -> void:
 		arrow_ratio = clamp(arrow_ratio - return_speed_ratio * delta, 0.0, 1.0)
 	_update_arrow_position()
 	_update_arrow_color()
+	_emit_zone_if_changed()
 
 func _update_zone_bounds() -> void:
 	if zone == null:
@@ -134,3 +139,26 @@ func _apply_difficulty() -> void:
 			set_zone_width_ratio(0.22)
 			bounce_ratio = 0.25
 			return_speed_ratio = 0.32
+
+func _emit_zone_if_changed() -> void:
+	if arrow == null:
+		return
+	var arrow_center_x: float = arrow.global_position.x + arrow.size.x * 0.5
+	var new_zone: int = Zone.GREEN
+	if arrow_center_x < zone_left_global:
+		new_zone = Zone.BLUE
+	elif arrow_center_x > zone_right_global:
+		new_zone = Zone.RED
+	if new_zone != _current_zone:
+		_current_zone = new_zone
+		Signalbus.balance_zone_changed.emit(_current_zone)
+
+func _on_set_balance_bar_difficulty(level: int) -> void:
+	var lvl: int = clamp(level, 1, 3)
+	match lvl:
+		1:
+			set_difficulty(Difficulty.EASY)
+		2:
+			set_difficulty(Difficulty.MEDIUM)
+		3:
+			set_difficulty(Difficulty.HARD)
