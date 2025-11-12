@@ -7,3 +7,8 @@ class_name RawFood extends Base
 @export var burn_temprature: int = 100
 @export var raw_temprature: int = 0
 @export var food: Food = null
+@export var blue_rate: float = 0.6
+@export var green_rate: float = 1.0
+@export var red_rate: float = 1.7
+@export var burn_time_threshold: float = 2.5
+@export var base_points: int = 10

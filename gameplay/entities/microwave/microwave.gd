@@ -24,6 +24,11 @@ var _remaining_time: float = 0.0
 var _initial_time: float = 0.0
 var _burn_level: float = 0.0
 var _current_zone: int = 0
+var _blue_rate: float = 0.5
+var _green_rate: float = 1.0
+var _red_rate: float = 1.5
+var _burn_threshold: float = 2.5
+var _base_points: int = 10
 
 func _ready() -> void:
 	AudioManager.play_music_from_path("res://assets/audio/music/lofi.mp3")
@@ -82,6 +87,12 @@ func _on_request_raw_food_cook(raw: RawFood) -> void:
 	_remaining_time = max(0.0, raw.time_to_cook)
 	_initial_time = _remaining_time
 	_burn_level = 0.0
+	# Pull per-item tuning from data (fallback to defaults if needed)
+	_blue_rate = raw.blue_rate
+	_green_rate = raw.green_rate
+	_red_rate = raw.red_rate
+	_burn_threshold = raw.burn_time_threshold
+	_base_points = raw.base_points
 	Signalbus.set_balance_bar_difficulty.emit(raw.difficulty_to_cook)
 	if timer:
 		timer.stop()
@@ -140,11 +151,11 @@ func _handle_cook_progress(delta: float) -> void:
 		return
 	match _current_zone:
 		-1:
-			_remaining_time -= delta * blue_cook_rate
+			_remaining_time -= delta * _blue_rate
 		0:
-			_remaining_time -= delta * green_cook_rate
+			_remaining_time -= delta * _green_rate
 		1:
-			_remaining_time -= delta * red_cook_rate
+			_remaining_time -= delta * _red_rate
 			_burn_level += delta
 	_remaining_time = clamp(_remaining_time, 0.0, max(_initial_time * 2.0, _remaining_time))
 	if _remaining_time <= 0.0:
@@ -161,13 +172,13 @@ func _finalize_cooking() -> void:
 				in_plate_raw_food.position = cooked.mesh_position + Vector3(0.0, 0.01, 0.0)
 			# Compute intensities for visuals and score
 			var raw_intensity01: float = clamp(_remaining_time / max(_initial_time, 0.0001), 0.0, 1.0)
-			var burn_intensity01: float = clamp(_burn_level / burn_threshold, 0.0, 1.0)
+			var burn_intensity01: float = clamp(_burn_level / _burn_threshold, 0.0, 1.0)
 			var force_blue: bool = (_current_zone == -1)
 			_apply_finish_visual(raw_intensity01, burn_intensity01, cooked, force_blue)
 			var undercook_penalty: float = clamp(_remaining_time / max(_initial_time, 0.0001), 0.0, 2.0)
-			var burn_penalty: float = clamp(_burn_level / burn_threshold, 0.0, 1.0)
+			var burn_penalty: float = clamp(_burn_level / _burn_threshold, 0.0, 1.0)
 			var quality_ratio: float = clamp(1.0 - (undercook_weight * undercook_penalty + burn_weight * burn_penalty), 0.0, 1.0)
-			var points: int = int(round(10.0 * quality_ratio))
+			var points: int = int(round(float(_base_points) * quality_ratio))
 			Global.score += max(0, points)
 			Signalbus.food_cooked.emit(cooked)
 			Signalbus.score_changed.emit(Global.score)

@@ -42,6 +42,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7634126, 0)
 
 [node name="FoodQueue" type="Node" parent="."]
 script = ExtResource("3_o7ecn")
+max_queue_size = 100
+cycles_to_run = 100
 available_raw_foods = Array[ExtResource("4_vcn57")]([ExtResource("5_o0bc2"), ExtResource("6_o0bc2"), ExtResource("7_f0akt")])
 
 [node name="AudioManager" type="Node" parent="."]

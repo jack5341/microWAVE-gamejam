@@ -6,7 +6,8 @@
 
 [resource]
 script = ExtResource("1_x6geo")
-time_to_cook = 2.0
+time_to_cook = 6.0
+difficulty_to_cook = 3
 food = ExtResource("1_p6o40")
 name = "Steak"
 mesh = ExtResource("1_v7nms")

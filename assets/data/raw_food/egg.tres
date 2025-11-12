@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_rpj8s")
-time_to_cook = 4.0
+time_to_cook = 5.0
 difficulty_to_cook = 2
 food = ExtResource("1_au1mx")
 name = "Egg"

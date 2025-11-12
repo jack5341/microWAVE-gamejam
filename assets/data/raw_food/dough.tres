@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_lycoc")
-time_to_cook = 2.0
+time_to_cook = 8.0
 food = ExtResource("1_s6jsq")
 mesh = ExtResource("2_s6jsq")
 mesh_scale = Vector3(0.05, 0.05, 0.05)
