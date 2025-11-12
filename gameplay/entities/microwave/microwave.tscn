@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://cw8mjn832rl2y"]
+[gd_scene load_steps=14 format=3 uid="uid://cw8mjn832rl2y"]
 
 [ext_resource type="Script" uid="uid://ci2vahfklqkjo" path="res://gameplay/entities/microwave/microwave.gd" id="1_pc5h4"]
 [ext_resource type="Texture2D" uid="uid://dti6qqmj1vp6j" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="2_glk8q"]
 [ext_resource type="Texture2D" uid="uid://v125ky6htoku" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_01.png" id="2_xxcka"]
 [ext_resource type="PackedScene" uid="uid://b3ingre68ts7r" path="res://ui/screens/hud.tscn" id="4_2katx"]
+[ext_resource type="FontFile" uid="uid://dprhoem533dxi" path="res://assets/typography/Jersey15-Regular.ttf" id="5_f5i3f"]
 [ext_resource type="Texture2D" uid="uid://cuylda24lvm6p" path="res://addons/kenney_prototype-textures/PNG/Light/texture_11.png" id="5_lxap8"]
 [ext_resource type="Shader" uid="uid://v8xvw5dpdnc2" path="res://shaders/psx.gdshader" id="6_psx"]
 
@@ -71,6 +72,30 @@ light_specular = 0.0
 layer = 101
 
 [node name="Hud" parent="HudLayer" instance=ExtResource("4_2katx")]
+
+[node name="ChatBubble" type="Control" parent="HudLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="HudLayer/ChatBubble"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HudLayer/ChatBubble/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 300
+
+[node name="Label" type="Label" parent="HudLayer/ChatBubble/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_f5i3f")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -0.5163981)

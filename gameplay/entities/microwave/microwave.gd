@@ -16,8 +16,9 @@ class_name Microwave extends Node3D
 @onready var door: Node3D = $Door
 @onready var timer: Timer = $Timer
 @onready var in_plate_raw_food: MeshInstance3D = $Plate/MeshInstance3D
+@onready var dialogue_label: Label = $HudLayer/ChatBubble/CenterContainer/MarginContainer/Label
 
-var rotation_speed: float = 90.0 # degrees per second
+var rotation_speed: float = 90.0
 var _session_over: bool = false
 var _time_accumulator: float = 0.0
 var _remaining_time: float = 0.0
@@ -29,6 +30,8 @@ var _green_rate: float = 1.0
 var _red_rate: float = 1.5
 var _burn_threshold: float = 2.5
 var _base_points: int = 10
+var _dialogue_timer: Timer = null
+var _dialogue_lines: Array[String] = []
 
 func _ready() -> void:
 	AudioManager.play_music_from_path("res://assets/audio/music/lofi.mp3")
@@ -96,9 +99,11 @@ func _on_request_raw_food_cook(raw: RawFood) -> void:
 	Signalbus.set_balance_bar_difficulty.emit(raw.difficulty_to_cook)
 	if timer:
 		timer.stop()
+	_start_dialogue_loop(raw.dialogue_lines)
 
 func _on_timer_timeout() -> void:
 	started = false
+	_stop_dialogue_loop()
 	if what_is_inside != null:
 		var cooked: Food = what_is_inside.food
 		if cooked != null:
@@ -163,6 +168,7 @@ func _handle_cook_progress(delta: float) -> void:
 
 func _finalize_cooking() -> void:
 	started = false
+	_stop_dialogue_loop()
 	if what_is_inside != null:
 		var cooked: Food = what_is_inside.food
 		if cooked != null:
@@ -222,3 +228,46 @@ func _apply_finish_visual(raw_intensity: float, burn_intensity: float, cooked: F
 	elif apply_burn:
 		# Use surface materials for burn darkening
 		in_plate_raw_food.material_override = null
+
+func _start_dialogue_loop(dialogue_lines: Array[String]) -> void:
+	if dialogue_label == null:
+		return
+	if dialogue_lines == null or dialogue_lines.is_empty():
+		dialogue_label.visible = false
+		dialogue_label.text = ""
+		return
+	_dialogue_lines = dialogue_lines
+	# Show immediately with a random line
+	dialogue_label.visible = true
+	dialogue_label.text = _dialogue_lines[randi() % _dialogue_lines.size()]
+	# Create/update timer
+	if _dialogue_timer == null:
+		_dialogue_timer = Timer.new()
+		_dialogue_timer.one_shot = false
+		_dialogue_timer.wait_time = 2.5
+		add_child(_dialogue_timer)
+		_dialogue_timer.timeout.connect(_on_dialogue_timer_timeout)
+	_dialogue_timer.start()
+
+func _stop_dialogue_loop() -> void:
+	if _dialogue_timer != null:
+		_dialogue_timer.stop()
+		_dialogue_timer.queue_free()
+		_dialogue_timer = null
+	if dialogue_label != null:
+		dialogue_label.visible = false
+		dialogue_label.text = ""
+	_dialogue_lines.clear()
+
+func _on_dialogue_timer_timeout() -> void:
+	if not started or what_is_inside == null:
+		_stop_dialogue_loop()
+		return
+	if dialogue_label == null:
+		return
+	if _dialogue_lines.is_empty():
+		dialogue_label.visible = false
+		dialogue_label.text = ""
+		return
+	dialogue_label.visible = true
+	dialogue_label.text = _dialogue_lines[randi() % _dialogue_lines.size()]
