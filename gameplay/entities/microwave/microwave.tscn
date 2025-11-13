@@ -83,6 +83,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="HudLayer/ChatBubble"]
 layout_mode = 1
@@ -91,14 +92,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HudLayer/ChatBubble/CenterContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 300
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="HudLayer/ChatBubble/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_f5i3f")
+mouse_filter = 2
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -0.5163981)
