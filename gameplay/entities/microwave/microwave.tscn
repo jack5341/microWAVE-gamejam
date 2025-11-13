@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cw8mjn832rl2y"]
+[gd_scene load_steps=19 format=3 uid="uid://cw8mjn832rl2y"]
 
 [ext_resource type="Script" uid="uid://ci2vahfklqkjo" path="res://gameplay/entities/microwave/microwave.gd" id="1_pc5h4"]
 [ext_resource type="Texture2D" uid="uid://dti6qqmj1vp6j" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="2_glk8q"]
@@ -41,8 +41,18 @@ shader_parameter/chromatic_aberration_strength = 0.0
 shader_parameter/vignette_strength = 0.8
 shader_parameter/vignette_radius = 0.9
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7lbod"]
+albedo_texture = ExtResource("5_lxap8")
+uv1_scale = Vector3(3, 3, 3)
+
+[sub_resource type="QuadMesh" id="QuadMesh_7lbod"]
+material = SubResource("StandardMaterial3D_7lbod")
+size = Vector2(0.2, 0.2)
+
 [node name="Microwave" type="Node3D"]
 script = ExtResource("1_pc5h4")
+default_camera_position = Vector3(0, 0, -0.516)
+default_camera_rotation_degrees = Vector3(0, 180, 0)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
@@ -96,18 +106,20 @@ mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="HudLayer/ChatBubble/CenterContainer"]
 layout_mode = 2
-theme_override_constants/margin_top = 300
 mouse_filter = 2
+theme_override_constants/margin_top = 300
 
 [node name="Label" type="Label" parent="HudLayer/ChatBubble/CenterContainer/MarginContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_f5i3f")
-mouse_filter = 2
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -0.5163981)
 fov = 43.3
 near = 0.035
+
+[node name="ReflectionProbe" type="ReflectionProbe" parent="Camera3D"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -4.5144954e-08, 0, -0.5163981)
 
 [node name="Door" type="Node3D" parent="."]
 
@@ -158,3 +170,7 @@ microwave = NodePath("..")
 _plate = NodePath("../Plate")
 _light = NodePath("../Light")
 _in_plate_raw_food = NodePath("../Plate/MeshInstance3D")
+
+[node name="GuideMap" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.2536441, 0, -0.23384532)
+mesh = SubResource("QuadMesh_7lbod")

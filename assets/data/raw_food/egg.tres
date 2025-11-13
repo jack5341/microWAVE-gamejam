@@ -6,8 +6,17 @@
 
 [resource]
 script = ExtResource("1_rpj8s")
-time_to_cook = 5.0
-difficulty_to_cook = 2
+time_to_cook = 4.5
+base_points = 12
+blue_rate = 0.55
+green_rate = 0.95
+red_rate = 1.65
+burn_time_threshold = 2.3
+burn_temprature = 95
+raw_temprature = 5
+plate_rpm = 85.0
+power_level = 0.9
+temperature_level = 1.1
 dialogue_lines = Array[String](["Don't count your chickens before they're cooked!", "I'm egg-cited to be cooked!", "This is going to be egg-cellent!"])
 food = ExtResource("1_au1mx")
 name = "Egg"

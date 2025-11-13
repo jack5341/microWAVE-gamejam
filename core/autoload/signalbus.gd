@@ -26,3 +26,6 @@ signal change_temperature_microwave(temperature: int)
 
 @warning_ignore("UNUSED_SIGNAL")
 signal combo_changed(streak: int, multiplier: int)
+
+@warning_ignore("UNUSED_SIGNAL")
+signal food_talked(string: String)

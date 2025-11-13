@@ -3,28 +3,32 @@ extends Control
 @onready var score_label: Label = $TopBar/HBoxContainer/Score
 @onready var countdown_label: Label = $TopBar/HBoxContainer/Countdown
 @onready var hint_bar: Label = $HintBar/FinishHint
-@onready var rpm_label: Label = $MarginContainer/HBoxContainer/VBoxContainer2/RPM
-@onready var wattage_label: Label = $MarginContainer/HBoxContainer/VBoxContainer/Wattage
-@onready var rpm_slider: VSlider = $MarginContainer/HBoxContainer/VBoxContainer2/VSlider
-@onready var wattage_slider: VSlider = $MarginContainer/HBoxContainer/VBoxContainer/VSlider
+
+@onready var rpm_label: Label = $ControlPanel/HBoxContainer/VBoxContainer2/RPM
+@onready var wattage_label: Label = $ControlPanel/HBoxContainer/VBoxContainer/Wattage
+@onready var rpm_slider: VSlider = $ControlPanel/HBoxContainer/VBoxContainer2/VSlider
+@onready var wattage_slider: VSlider = $ControlPanel/HBoxContainer/VBoxContainer/VSlider
+@onready var guide: CenterContainer = $Guide
 
 var last_displayed_score: int = -1
 var last_displayed_seconds: int = -1
 
 func _ready() -> void:
 	_update_score(Global.score)
-	Signalbus.score_changed.connect(_on_score_changed)
 	_update_time(Global.time_remaining)
+
+	Signalbus.score_changed.connect(_on_score_changed)
 	Signalbus.time_remaining_changed.connect(_on_time_remaining_changed)
-	if not Signalbus.waiting_for_finish_changed.is_connected(_on_waiting_for_finish_changed):
-		Signalbus.waiting_for_finish_changed.connect(_on_waiting_for_finish_changed)
+	Signalbus.waiting_for_finish_changed.connect(_on_waiting_for_finish_changed)	
 	
-	# Configure RPM slider
+	if guide != null:
+		guide.visible = false
+
 	if rpm_slider != null:
 		rpm_slider.min_value = 0
 		rpm_slider.max_value = 180
-		rpm_slider.step = 5
-		rpm_slider.value = 90  # Default RPM
+		rpm_slider.step = 10
+		rpm_slider.value = 90 
 		if not rpm_slider.value_changed.is_connected(_on_rpm_changed):
 			rpm_slider.value_changed.connect(_on_rpm_changed)
 		_update_rpm_label(rpm_slider.value)
@@ -46,6 +50,9 @@ func _process(_delta: float) -> void:
 		_update_score(Global.score)
 	if Global.time_remaining != last_displayed_seconds:
 		_update_time(Global.time_remaining)
+	
+	if guide != null:
+		guide.visible = Input.is_action_pressed("guide")
 
 func _on_score_changed(score: int) -> void:
 	_update_score(score)

@@ -1,10 +1,42 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3ingre68ts7r"]
+[gd_scene load_steps=7 format=3 uid="uid://b3ingre68ts7r"]
 
 [ext_resource type="PackedScene" uid="uid://cbimj6baogiq4" path="res://ui/components/balance_bar.tscn" id="1_7tb4a"]
 [ext_resource type="Script" uid="uid://b57oxu80r7v8g" path="res://ui/screens/hud.gd" id="2_hud"]
+[ext_resource type="PackedScene" uid="uid://b5sotcvjlq5vw" path="res://ui/components/guide_item.tscn" id="3_l1baa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3ncf"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.92156863)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1baa"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_l1baa"]
-font_size = 64
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -52,29 +84,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(400, 24)
 layout_mode = 2
 
-[node name="HintBar" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -97.0
-offset_top = -32.666668
-offset_right = 97.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_bottom = 40
-
-[node name="FinishHint" type="Label" parent="HintBar"]
-visible = false
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Press F to finish"
-label_settings = SubResource("LabelSettings_l1baa")
-horizontal_alignment = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="ControlPanel" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -86,54 +96,174 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlPanel"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlPanel/HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Wattage" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Wattage" type="Label" parent="ControlPanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 
-[node name="VSlider" type="VSlider" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="VSlider" type="VSlider" parent="ControlPanel/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/tick_offset = 10
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ControlPanel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "Wattage"
 horizontal_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="ControlPanel/HBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="RPM" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="RPM" type="Label" parent="ControlPanel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 
-[node name="VSlider" type="VSlider" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="VSlider" type="VSlider" parent="ControlPanel/HBoxContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/tick_offset = 10
 
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="ControlPanel/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 20
 text = "RPM"
 horizontal_alignment = 1
 
-[node name="Control" type="Control" parent="MarginContainer/HBoxContainer"]
+[node name="Control" type="Control" parent="ControlPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Guide" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Guide"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n3ncf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Guide/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Header" type="Panel" parent="Guide/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1baa")
+
+[node name="Label" type="Label" parent="Guide/Panel/VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Guide"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Guide/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="GridContainer" type="GridContainer" parent="Guide/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="DoughGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
+layout_mode = 2
+size_flags_horizontal = 3
+name_text = "Dough"
+label_1_text = "Wattage: 105"
+label_2_text = "RPM: 95"
+label_3_text = "Temperature: 95"
+
+[node name="EggGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
+layout_mode = 2
+size_flags_horizontal = 3
+name_text = "Egg"
+label_1_text = "Wattage: 90"
+label_2_text = "RPM: 85"
+label_3_text = "Temperature: 110"
+
+[node name="SteakGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
+layout_mode = 2
+size_flags_horizontal = 3
+name_text = "Steak"
+label_1_text = "Wattage: 115"
+label_2_text = "RPM: 100"
+label_3_text = "Temperature: 105"
+
+[node name="TextBar" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FinishHint" type="Label" parent="TextBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.5
+offset_top = -8.166667
+offset_right = 48.5
+offset_bottom = 8.166667
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Press F to finish"
+label_settings = SubResource("LabelSettings_l1baa")
+horizontal_alignment = 1
+
+[node name="Dialogues" type="Label" parent="TextBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -8.5
+offset_right = 0.5
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2

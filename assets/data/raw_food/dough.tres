@@ -6,7 +6,18 @@
 
 [resource]
 script = ExtResource("1_lycoc")
-time_to_cook = 8.0
+time_to_cook = 9.2
+difficulty_to_cook = 2
+base_points = 15
+blue_rate = 0.65
+green_rate = 1.05
+red_rate = 1.75
+burn_time_threshold = 2.8
+burn_temprature = 110
+raw_temprature = 2
+plate_rpm = 95.0
+power_level = 1.05
+temperature_level = 0.95
 dialogue_lines = Array[String](["Time to rise to the occasion!", "This is going to be a pizza cake!", "Knead me, I'm ready!"])
 food = ExtResource("1_s6jsq")
 mesh = ExtResource("2_s6jsq")
