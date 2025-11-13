@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cw8mjn832rl2y"]
+[gd_scene load_steps=17 format=3 uid="uid://cw8mjn832rl2y"]
 
 [ext_resource type="Script" uid="uid://ci2vahfklqkjo" path="res://gameplay/entities/microwave/microwave.gd" id="1_pc5h4"]
 [ext_resource type="Texture2D" uid="uid://dti6qqmj1vp6j" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="2_glk8q"]
@@ -7,6 +7,9 @@
 [ext_resource type="FontFile" uid="uid://dprhoem533dxi" path="res://assets/typography/Jersey15-Regular.ttf" id="5_f5i3f"]
 [ext_resource type="Texture2D" uid="uid://cuylda24lvm6p" path="res://addons/kenney_prototype-textures/PNG/Light/texture_11.png" id="5_lxap8"]
 [ext_resource type="Shader" uid="uid://v8xvw5dpdnc2" path="res://shaders/psx.gdshader" id="6_psx"]
+[ext_resource type="Script" uid="uid://hnur5de18oil" path="res://gameplay/entities/microwave/dialogues.gd" id="8_7lbod"]
+[ext_resource type="Script" uid="uid://dft8dcppt2vv8" path="res://gameplay/entities/microwave/cooking.gd" id="9_vtfc8"]
+[ext_resource type="Script" uid="uid://umgn3ctnjvnl" path="res://gameplay/entities/microwave/visual.gd" id="10_g00tf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxap8"]
 albedo_texture = ExtResource("2_xxcka")
@@ -136,3 +139,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="Dialogues" type="Node" parent="." node_paths=PackedStringArray("microwave")]
+script = ExtResource("8_7lbod")
+microwave = NodePath("..")
+
+[node name="Cooking" type="Node" parent="." node_paths=PackedStringArray("microwave")]
+script = ExtResource("9_vtfc8")
+microwave = NodePath("..")
+
+[node name="Visual" type="Node" parent="." node_paths=PackedStringArray("microwave")]
+script = ExtResource("10_g00tf")
+microwave = NodePath("..")
