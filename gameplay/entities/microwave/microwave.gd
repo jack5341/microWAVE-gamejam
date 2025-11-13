@@ -21,8 +21,8 @@ var _time_accumulator: float = 0.0
 
 func _ready() -> void:
 	AudioManager.play_music_from_path("res://assets/audio/music/lofi.mp3")
-
-	# Components are responsible for their own setup
+	await get_tree().process_frame
+	AudioManager.set_bus_volume_db(AudioManager.music_bus_name, -20)
 
 func _process(delta: float) -> void:
 	_handle_session_timer(delta)
