@@ -58,12 +58,18 @@ func _process(delta: float) -> void:
 	# Check space press for combo (no bounce)
 	var pressed: bool = Input.is_physical_key_pressed(KEY_SPACE)
 	if pressed and not _space_was_pressed and combo_input_enabled:
+		var current_zone_at_press: int = _get_current_arrow_zone()
 		var inside: bool = _is_arrow_inside_green()
 		if inside:
 			streak += 1
 		else:
 			streak = 0
 		Signalbus.combo_changed.emit(streak, _compute_multiplier(streak))
+		# Trigger camera shake if space pressed in red or blue zone
+		if current_zone_at_press == Zone.RED:
+			Signalbus.red_zone_space_pressed.emit()
+		elif current_zone_at_press == Zone.BLUE:
+			Signalbus.blue_zone_space_pressed.emit()
 	_space_was_pressed = pressed
 	
 	_update_arrow_position()
@@ -75,6 +81,16 @@ func _is_arrow_inside_green() -> bool:
 		return false
 	var arrow_center_x: float = arrow.global_position.x + arrow.size.x * 0.5
 	return arrow_center_x >= zone_left_global and arrow_center_x <= zone_right_global
+
+func _get_current_arrow_zone() -> int:
+	if arrow == null:
+		return Zone.GREEN
+	var arrow_center_x: float = arrow.global_position.x + arrow.size.x * 0.5
+	if arrow_center_x < zone_left_global:
+		return Zone.BLUE
+	elif arrow_center_x > zone_right_global:
+		return Zone.RED
+	return Zone.GREEN
 
 func _compute_multiplier(s: int) -> float:
 	# Smooth, diminishing-returns curve approaching combo_max_multiplier

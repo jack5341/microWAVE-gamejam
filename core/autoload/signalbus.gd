@@ -32,3 +32,8 @@ signal food_talked(string: String)
 
 @warning_ignore("UNUSED_SIGNAL")
 signal guide_mode_changed(active: bool)
+
+@warning_ignore("UNUSED_SIGNAL")
+signal red_zone_space_pressed()
+@warning_ignore("UNUSED_SIGNAL")
+signal blue_zone_space_pressed()

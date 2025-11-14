@@ -33,7 +33,7 @@ albedo_texture = ExtResource("2_glk8q")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_psx"]
 shader = ExtResource("6_psx")
 shader_parameter/resolution_x = 320
-shader_parameter/resolution_y = 240
+shader_parameter/resolution_y = 360
 shader_parameter/color_bit_depth = 5
 shader_parameter/dither_strength = 0.03
 shader_parameter/jitter_amount = 0.0

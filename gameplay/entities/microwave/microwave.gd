@@ -24,6 +24,8 @@ class_name Microwave extends Node3D
 @export var shake_enabled: bool = true
 @export var shake_duration_red: float = 0.5
 @export var shake_amplitude_red: float = 0.01
+@export var shake_duration_blue: float = 0.5
+@export var shake_amplitude_blue: float = 0.01
 @export var shake_duration_settle: float = 0.15
 @export var shake_amplitude_settle: float = 0.0025
 @export var shake_sustain_on_red: bool = true
@@ -55,6 +57,10 @@ func _ready() -> void:
 		Signalbus.guide_mode_changed.connect(_on_guide_mode_changed)
 	if not Signalbus.balance_zone_changed.is_connected(_on_zone_changed):
 		Signalbus.balance_zone_changed.connect(_on_zone_changed)
+	if not Signalbus.red_zone_space_pressed.is_connected(_on_red_zone_space_pressed):
+		Signalbus.red_zone_space_pressed.connect(_on_red_zone_space_pressed)
+	if not Signalbus.blue_zone_space_pressed.is_connected(_on_blue_zone_space_pressed):
+		Signalbus.blue_zone_space_pressed.connect(_on_blue_zone_space_pressed)
 	_shake_rng.randomize()
 
 func _process(delta: float) -> void:
@@ -158,13 +164,18 @@ func _on_guide_mode_changed(active: bool) -> void:
 	else:
 		_deactivate_guide_view()
 
-func _on_zone_changed(zone: int) -> void:
+func _on_zone_changed(_zone: int) -> void:
+	pass
+
+func _on_red_zone_space_pressed() -> void:
 	if not shake_enabled:
 		return
-	if zone == 1:
-		_start_camera_shake(shake_duration_red, shake_amplitude_red)
-	else:
-		_start_camera_shake(shake_duration_settle, shake_amplitude_settle)
+	_start_camera_shake(shake_duration_red, shake_amplitude_red)
+
+func _on_blue_zone_space_pressed() -> void:
+	if not shake_enabled:
+		return
+	_start_camera_shake(shake_duration_blue, shake_amplitude_blue)
 
 func _start_camera_shake(duration: float, amplitude: float) -> void:
 	_shake_time = max(_shake_time, duration)
@@ -174,9 +185,6 @@ func _start_camera_shake(duration: float, amplitude: float) -> void:
 func _update_camera_shake(delta: float) -> void:
 	if camera == null or not shake_enabled:
 		return
-	# Sustain a baseline shake while in RED, if enabled
-	if shake_sustain_on_red and get_current_zone() == 1:
-		_start_camera_shake(shake_sustain_duration, shake_sustain_amplitude)
 	# Remove last frame's offset to avoid drifting against tweens
 	if _shake_prev_offset != Vector3.ZERO:
 		camera.position -= _shake_prev_offset

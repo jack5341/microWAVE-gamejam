@@ -1,2 +1,5 @@
 - managing 2 plate
 - upgrade plates and decoration buying
+- hell diverse 2 like move keys skill using
+- as an enviroment effect let microwave door open or man looking for food
+- special cooked food serving effect.
