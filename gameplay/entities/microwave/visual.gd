@@ -55,20 +55,27 @@ func show_raw_food(raw: RawFood) -> void:
 	if is_instance_valid(_in_plate_raw_food):
 		_in_plate_raw_food.material_override = null
 
-func apply_finish_visual(raw_intensity: float, burn_intensity: float, cooked: Food, force_blue: bool = false) -> void:
+func apply_finish_visual(raw_intensity: float, burn_intensity: float, cooked: Food, raw_food: RawFood, force_blue: bool = false) -> void:
 	if _in_plate_raw_food == null or cooked == null or cooked.mesh == null:
 		return
 	var threshold: float = 0.01
 	var apply_burn: bool = (not force_blue) and burn_intensity > raw_intensity and burn_intensity > threshold
 	var apply_raw: bool = force_blue or (raw_intensity >= burn_intensity and raw_intensity > threshold)
 	_update_finish_effects(apply_raw, apply_burn)
+	
+	# If food is raw, keep the raw_food mesh instead of applying blue tint
+	if apply_raw and raw_food != null and raw_food.mesh != null:
+		_in_plate_raw_food.mesh = raw_food.mesh
+		_in_plate_raw_food.scale = raw_food.mesh_scale
+		_in_plate_raw_food.position = raw_food.mesh_position
+		_in_plate_raw_food.material_override = null
+		return
+	
 	if not apply_burn and not apply_raw:
-		# Still ensure we show the cooked mesh transform
 		_in_plate_raw_food.mesh = cooked.mesh
 		_in_plate_raw_food.scale = cooked.mesh_scale
 		_in_plate_raw_food.position = cooked.mesh_position + Vector3(0.0, 0.01, 0.0)
 		return
-	# Ensure cooked transform baseline
 	_in_plate_raw_food.scale = cooked.mesh_scale
 	_in_plate_raw_food.position = cooked.mesh_position + Vector3(0.0, 0.01, 0.0)
 	var src_mesh: ArrayMesh = cooked.mesh
@@ -86,8 +93,9 @@ func apply_finish_visual(raw_intensity: float, burn_intensity: float, cooked: Fo
 		else:
 			new_mat = StandardMaterial3D.new()
 		if apply_burn:
-			var d: float = clamp(1.0 - 0.7 * burn_intensity, 0.0, 1.0)
-			new_mat.albedo_color = Color(d, d, d, 1.0)
+			var original_color: Color = new_mat.albedo_color if new_mat.albedo_color != Color.WHITE else Color(0.8, 0.8, 0.8, 1.0)
+			var black_color: Color = Color(0.0, 0.0, 0.0, 1.0)
+			new_mat.albedo_color = original_color.lerp(black_color, burn_intensity)
 		elif apply_raw:
 			new_mat.albedo_color = Color(1, 1, 1, 1.0).lerp(blue_tint, blue_strength)
 		dupe_mesh.surface_set_material(i, new_mat)

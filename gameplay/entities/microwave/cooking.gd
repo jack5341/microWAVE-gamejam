@@ -89,13 +89,14 @@ func _finalize_cooking() -> void:
 	if microwave.dialogues != null:
 		microwave.dialogues.stop_dialogue_loop()
 	if microwave.what_is_inside != null:
-		var cooked: Food = microwave.what_is_inside.food
+		var raw_food: RawFood = microwave.what_is_inside
+		var cooked: Food = raw_food.food
 		if cooked != null:
 			var raw_intensity01: float = clamp(remaining_time / max(initial_time, 0.0001), 0.0, 1.0)
 			var burn_intensity01: float = clamp(burn_level / burn_threshold, 0.0, 1.0)
 			var force_blue: bool = (current_zone == -1)
 			if microwave.visual != null:
-				microwave.visual.apply_finish_visual(raw_intensity01, burn_intensity01, cooked, force_blue)
+				microwave.visual.apply_finish_visual(raw_intensity01, burn_intensity01, cooked, raw_food, force_blue)
 			var undercook_penalty: float = clamp(remaining_time / max(initial_time, 0.0001), 0.0, 2.0)
 			var burn_penalty: float = clamp(burn_level / burn_threshold, 0.0, 1.0)
 			var quality_ratio: float = clamp(1.0 - (microwave.undercook_weight * undercook_penalty + microwave.burn_weight * burn_penalty), 0.0, 1.0)

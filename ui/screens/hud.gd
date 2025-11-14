@@ -1,5 +1,9 @@
 extends Control
 
+@export_category("Guide Fade")
+@export var fade_in_duration: float = 0.3
+@export var fade_out_duration: float = 0.3
+
 @onready var score_label: Label = $TopBar/HBoxContainer/Score
 @onready var countdown_label: Label = $TopBar/HBoxContainer/Countdown
 @onready var finish_hint_label: Label = $TextBar/FinishHint
@@ -14,6 +18,7 @@ extends Control
 
 var last_displayed_score: int = -1
 var last_displayed_seconds: int = -1
+var _guide_fade_tween: Tween = null
 
 func _ready() -> void:
 	_update_score(Global.score)
@@ -26,6 +31,7 @@ func _ready() -> void:
 	
 	if guide != null:
 		guide.visible = false
+		guide.modulate.a = 0.0
 	
 	if finish_hint_label != null:
 		finish_hint_label.visible = false
@@ -104,13 +110,37 @@ func _update_wattage_label(value: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("guide"):
-		if guide != null:
-			guide.visible = true
+		_fade_in_guide()
 		Signalbus.guide_mode_changed.emit(true)
 	elif event.is_action_released("guide"):
-		if guide != null:
-			guide.visible = false
+		_fade_out_guide()
 		Signalbus.guide_mode_changed.emit(false)
+
+func _fade_in_guide() -> void:
+	if guide == null:
+		return
+	
+	# Stop any existing fade tween
+	if _guide_fade_tween != null:
+		_guide_fade_tween.kill()
+	
+	guide.visible = true
+	guide.modulate.a = 0.0
+	
+	_guide_fade_tween = create_tween()
+	_guide_fade_tween.tween_property(guide, "modulate:a", 1.0, fade_in_duration)
+
+func _fade_out_guide() -> void:
+	if guide == null:
+		return
+	
+	# Stop any existing fade tween
+	if _guide_fade_tween != null:
+		_guide_fade_tween.kill()
+	
+	_guide_fade_tween = create_tween()
+	_guide_fade_tween.tween_property(guide, "modulate:a", 0.0, fade_out_duration)
+	_guide_fade_tween.tween_callback(func(): guide.visible = false)
 
 func _on_food_talked(text: String) -> void:
 	if dialogues_label == null:

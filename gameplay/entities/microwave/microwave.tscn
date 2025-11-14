@@ -99,6 +99,8 @@ light_specular = 0.0
 layer = 101
 
 [node name="Hud" parent="HudLayer" instance=ExtResource("4_2katx")]
+fade_in_duration = 0.1
+fade_out_duration = 0.1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, -0.5163981)
