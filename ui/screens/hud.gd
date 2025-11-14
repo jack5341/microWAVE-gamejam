@@ -61,7 +61,7 @@ func _ready() -> void:
 		if not rpm_slider.value_changed.is_connected(_on_rpm_changed):
 			rpm_slider.value_changed.connect(_on_rpm_changed)
 		_update_rpm_label(rpm_slider.value)
-		Signalbus.change_rpm_microwave.emit(rpm_slider.value)
+		_emit_microwave_settings()
 	
 	# Configure Wattage slider
 	if wattage_slider != null:
@@ -72,7 +72,7 @@ func _ready() -> void:
 		if not wattage_slider.value_changed.is_connected(_on_wattage_changed):
 			wattage_slider.value_changed.connect(_on_wattage_changed)
 		_update_wattage_label(wattage_slider.value)
-		Signalbus.change_power_microwave.emit(int(wattage_slider.value))
+		_emit_microwave_settings()
 
 func _process(_delta: float) -> void:
 	if Global.score != last_displayed_score:
@@ -105,11 +105,16 @@ func _on_waiting_for_finish_changed(active: bool) -> void:
 
 func _on_rpm_changed(value: float) -> void:
 	_update_rpm_label(value)
-	Signalbus.change_rpm_microwave.emit(value)
+	_emit_microwave_settings()
 
 func _on_wattage_changed(value: float) -> void:
 	_update_wattage_label(value)
-	Signalbus.change_power_microwave.emit(int(value))
+	_emit_microwave_settings()
+
+func _emit_microwave_settings() -> void:
+	var rpm: float = rpm_slider.value if rpm_slider != null else 90.0
+	var wattage: int = int(wattage_slider.value) if wattage_slider != null else 100
+	Signalbus.microwave_settings_changed.emit(rpm, wattage)
 
 func _update_rpm_label(value: float) -> void:
 	if rpm_label != null:

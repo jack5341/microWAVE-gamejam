@@ -53,14 +53,9 @@ func _ready() -> void:
 	AudioManager.play_music_from_path("res://assets/audio/music/lofi.mp3")
 	await get_tree().process_frame
 	AudioManager.set_bus_volume_db(AudioManager.music_bus_name, -30)
-	if not Signalbus.guide_mode_changed.is_connected(_on_guide_mode_changed):
-		Signalbus.guide_mode_changed.connect(_on_guide_mode_changed)
-	if not Signalbus.balance_zone_changed.is_connected(_on_zone_changed):
-		Signalbus.balance_zone_changed.connect(_on_zone_changed)
-	if not Signalbus.red_zone_space_pressed.is_connected(_on_red_zone_space_pressed):
-		Signalbus.red_zone_space_pressed.connect(_on_red_zone_space_pressed)
-	if not Signalbus.blue_zone_space_pressed.is_connected(_on_blue_zone_space_pressed):
-		Signalbus.blue_zone_space_pressed.connect(_on_blue_zone_space_pressed)
+	Signalbus.guide_mode_changed.connect(_on_guide_mode_changed)
+	Signalbus.balance_zone_changed.connect(_on_zone_changed)
+	Signalbus.zone_space_pressed.connect(_on_zone_space_pressed)
 	_shake_rng.randomize()
 
 func _process(delta: float) -> void:
@@ -167,15 +162,13 @@ func _on_guide_mode_changed(active: bool) -> void:
 func _on_zone_changed(_zone: int) -> void:
 	pass
 
-func _on_red_zone_space_pressed() -> void:
+func _on_zone_space_pressed(zone: int) -> void:
 	if not shake_enabled:
 		return
-	_start_camera_shake(shake_duration_red, shake_amplitude_red)
-
-func _on_blue_zone_space_pressed() -> void:
-	if not shake_enabled:
-		return
-	_start_camera_shake(shake_duration_blue, shake_amplitude_blue)
+	if zone == 1:  # RED
+		_start_camera_shake(shake_duration_red, shake_amplitude_red)
+	elif zone == -1:  # BLUE
+		_start_camera_shake(shake_duration_blue, shake_amplitude_blue)
 
 func _start_camera_shake(duration: float, amplitude: float) -> void:
 	_shake_time = max(_shake_time, duration)

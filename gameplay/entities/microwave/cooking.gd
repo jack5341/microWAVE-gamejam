@@ -18,14 +18,14 @@ var current_combo_multiplier: float = 1.0
 var current_combo_streak: int = 0
 
 func _ready() -> void:
-	Signalbus.change_power_microwave.connect(_on_change_power_microwave)
+	Signalbus.microwave_settings_changed.connect(_on_microwave_settings_changed)
 	
 	timer.timeout.connect(_on_timer_timeout)
 	Signalbus.request_raw_food_cook.connect(_on_request_raw_food_cook)
 	Signalbus.balance_zone_changed.connect(_on_balance_zone_changed)
 	set_process(true)
 
-func _on_change_power_microwave(wattage: int) -> void:
+func _on_microwave_settings_changed(rpm: float, wattage: int) -> void:
 	current_wattage = wattage
 
 func _process(delta: float) -> void:

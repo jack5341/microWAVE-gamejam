@@ -66,10 +66,8 @@ func _process(delta: float) -> void:
 			streak = 0
 		Signalbus.combo_changed.emit(streak, _compute_multiplier(streak))
 		# Trigger camera shake if space pressed in red or blue zone
-		if current_zone_at_press == Zone.RED:
-			Signalbus.red_zone_space_pressed.emit()
-		elif current_zone_at_press == Zone.BLUE:
-			Signalbus.blue_zone_space_pressed.emit()
+		if current_zone_at_press == Zone.RED or current_zone_at_press == Zone.BLUE:
+			Signalbus.zone_space_pressed.emit(current_zone_at_press)
 	_space_was_pressed = pressed
 	
 	_update_arrow_position()

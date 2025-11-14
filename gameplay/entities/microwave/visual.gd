@@ -12,13 +12,13 @@ var plate_rpm: float = 90.0
 @export var _effect_steam: Node3D = null
 
 func _ready() -> void:
-	Signalbus.change_rpm_microwave.connect(_on_change_rpm_microwave)
+	Signalbus.microwave_settings_changed.connect(_on_microwave_settings_changed)
 	if _in_plate_raw_food == null:
 		_in_plate_raw_food = microwave.get_node_or_null("Plate/MeshInstance3D") as MeshInstance3D
 	_hide_all_effects()
 	set_process(true)
 
-func _on_change_rpm_microwave(rpm: float) -> void:
+func _on_microwave_settings_changed(rpm: float, wattage: int) -> void:
 	plate_rpm = rpm
 
 func _process(delta: float) -> void:
