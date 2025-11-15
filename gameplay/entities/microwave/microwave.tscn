@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cw8mjn832rl2y"]
+[gd_scene load_steps=32 format=3 uid="uid://cw8mjn832rl2y"]
 
 [ext_resource type="Script" uid="uid://ci2vahfklqkjo" path="res://gameplay/entities/microwave/microwave.gd" id="1_pc5h4"]
 [ext_resource type="Texture2D" uid="uid://dti6qqmj1vp6j" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="2_glk8q"]
@@ -12,15 +12,24 @@
 [ext_resource type="Script" uid="uid://hnur5de18oil" path="res://gameplay/entities/microwave/dialogues.gd" id="8_7lbod"]
 [ext_resource type="Script" uid="uid://dft8dcppt2vv8" path="res://gameplay/entities/microwave/cooking.gd" id="9_vtfc8"]
 [ext_resource type="Script" uid="uid://umgn3ctnjvnl" path="res://gameplay/entities/microwave/visual.gd" id="10_g00tf"]
+[ext_resource type="ArrayMesh" uid="uid://bjkjd1j3mkufc" path="res://assets/models/decorations/rug.res" id="13_2rnsc"]
+[ext_resource type="ArrayMesh" uid="uid://by8scokr2voqw" path="res://assets/models/decorations/couch.res" id="14_c3tsi"]
+[ext_resource type="ArrayMesh" uid="uid://cbxkbugpvds1v" path="res://assets/models/decorations/radio.res" id="16_w4sbg"]
+[ext_resource type="ArrayMesh" uid="uid://bbhlknmb55wyi" path="res://assets/models/decorations/light_cable.res" id="17_ye75o"]
+[ext_resource type="ArrayMesh" uid="uid://bcsp04pj1astb" path="res://assets/models/decorations/light.res" id="18_2e5ju"]
+[ext_resource type="ArrayMesh" uid="uid://5ye5a5vjlhjr" path="res://assets/models/decorations/katana.res" id="19_2e5ju"]
+[ext_resource type="ArrayMesh" uid="uid://bs6ld7gjy60tu" path="res://assets/models/decorations/ak47.res" id="20_wv23y"]
+[ext_resource type="ArrayMesh" uid="uid://brduo4asvk7a1" path="res://assets/models/decorations/plate.res" id="21_8pagl"]
+[ext_resource type="ArrayMesh" uid="uid://bhul5vfc3wahn" path="res://assets/models/decorations/billboard.res" id="22_8pagl"]
+[ext_resource type="ArrayMesh" uid="uid://c5bhj2uqnxtcy" path="res://assets/models/decorations/fireplace.res" id="23_2spit"]
+[ext_resource type="Texture2D" uid="uid://mu45yg0qhegu" path="res://assets/graphics/sprites/this_is_fine.jpg" id="23_y70s2"]
+[ext_resource type="ArrayMesh" uid="uid://c70jkqmm3g18b" path="res://assets/models/decorations/rug2.res" id="24_2spit"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxap8"]
 albedo_texture = ExtResource("2_xxcka")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2katx"]
 albedo_texture = ExtResource("2_xxcka")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xxcka"]
-albedo_texture = ExtResource("2_glk8q")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5i3f"]
 albedo_texture = ExtResource("5_lxap8")
@@ -70,30 +79,29 @@ operation = 2
 size = Vector3(0.5080322, 0.31862792, 0.7190552)
 material = SubResource("StandardMaterial3D_2katx")
 
-[node name="Plate" type="CSGCylinder3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15032774, 0)
-radius = 0.192
-height = 0.003
-material = SubResource("StandardMaterial3D_xxcka")
+[node name="Light" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.12523042, 0)
+light_specular = 0.0
+
+[node name="Plate" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15294313, 0)
+mesh = ExtResource("21_8pagl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plate"]
-transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.012728184, 0)
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0.015343577, 0)
+skeleton = NodePath("")
 
 [node name="Burn" parent="Plate" instance=ExtResource("4_g00tf")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05032774, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052943133, 0)
 visible = false
 
 [node name="Cold" parent="Plate" instance=ExtResource("5_2rnsc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05032774, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052943133, 0)
 visible = false
 
 [node name="Steam" parent="Plate" instance=ExtResource("6_c3tsi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05032774, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052943133, 0)
 visible = false
-
-[node name="Light" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.15453815, 0)
-light_specular = 0.0
 
 [node name="HudLayer" type="CanvasLayer" parent="."]
 layer = 101
@@ -167,3 +175,56 @@ _effect_steam = NodePath("../Plate/Steam")
 [node name="GuideMap" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.2536441, 0, -0.23384532)
 mesh = SubResource("QuadMesh_7lbod")
+
+[node name="Decorations" type="Node3D" parent="."]
+
+[node name="Rug" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(-4.305976e-12, 9.343965e-08, -0.99999994, 0.017186588, -2.1131663, -4.4211987e-08, -1.4919213, -0.024343165, -5.0640564e-10, 0.24691331, -0.007727351, 0.07738507)
+mesh = ExtResource("13_2rnsc")
+
+[node name="Couch" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(-0.4426511, -1.7510078, -9.836631e-08, 3.805531e-15, -7.89076e-08, 2.3199997, -1.7656579, 0.43897834, 2.4660475e-08, 0.09280844, -0.16220574, 0.18568745)
+mesh = ExtResource("14_c3tsi")
+
+[node name="Radio" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(-14.142137, -14.142135, -6.1817235e-07, 1.1116734e-22, -8.742278e-07, 20, -14.142135, 14.142137, 6.1817235e-07, -0.18678012, -0.16157912, 0.1687117)
+mesh = ExtResource("16_w4sbg")
+
+[node name="LightCable" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(0.01, 0, 0, 0, 0.027, 0, 0, 0, 0.01, 0, 0.22554496, 0)
+mesh = ExtResource("17_ye75o")
+skeleton = NodePath("../LightBulb")
+
+[node name="LightBulb" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, 0, 0.139019, 0)
+mesh = ExtResource("18_2e5ju")
+
+[node name="Katana" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(0.03, 0, 0, 0, -1.3113416e-09, -0.03, 0, 0.03, -1.3113416e-09, -0.2413915, 0.087669194, -0.086431436)
+mesh = ExtResource("19_2e5ju")
+
+[node name="AK47" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(1.3949809, 0, -1.4331886, 0, 2, 0, 1.4331886, 0, 1.3949809, 0.16744675, -0.15747224, -0.06807196)
+mesh = ExtResource("20_wv23y")
+
+[node name="Billboard" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(-0.00016584864, 0, -0.00011852452, 0, 0.00021275815, 0, 0.00014817648, 0, -0.00013266027, -0.21240143, -0.15867361, -0.074088395)
+mesh = ExtResource("22_8pagl")
+
+[node name="Sprite3D" type="Sprite3D" parent="Decorations/Billboard"]
+transform = Transform3D(-1.1444092e-05, 0, 25.753475, 0, 39.4879, 0, 51.4109, 0, 1.1444092e-05, -59.947937, 529.25757, -66.959595)
+texture = ExtResource("23_y70s2")
+
+[node name="Fireplace" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(-2.1855695e-07, 5, 2.1855695e-07, 0, -2.1855695e-07, 5, 5, 2.1855695e-07, 9.553427e-15, 0.22346874, -0.13287878, 0.15858486)
+mesh = ExtResource("23_2spit")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Decorations/Fireplace"]
+transform = Transform3D(0.2, 0, 5.293956e-23, 0, 0.2, 1.6703745e-23, 2.646978e-23, 1.6703745e-23, 0.2, 3.7252903e-09, -0.002808895, 0)
+light_color = Color(0.58356106, 0, 0.07702438, 1)
+light_energy = 0.049
+light_specular = 1.326
+
+[node name="Rug2" type="MeshInstance3D" parent="Decorations"]
+transform = Transform3D(5, 0, 0, 0, -2.1855695e-07, 5, 0, -5, -2.1855695e-07, 0.16251498, -0.15992725, 0.1604621)
+mesh = ExtResource("24_2spit")

@@ -4,7 +4,7 @@ extends Node
 
 var plate_rpm: float = 90.0
 
-@export var _plate: CSGCylinder3D = null
+@export var _plate: MeshInstance3D = null
 @export var _light: SpotLight3D = null
 @export var _in_plate_raw_food: MeshInstance3D = null
 @export var _effect_burn: Node3D = null
@@ -48,9 +48,6 @@ func show_raw_food(raw: RawFood) -> void:
 	_in_plate_raw_food.position = raw.mesh_position
 	if is_instance_valid(_in_plate_raw_food):
 		_in_plate_raw_food.material_override = null
-	# Set RPM from raw food data
-	if raw != null and "plate_rpm" in raw:
-		plate_rpm = raw.plate_rpm
 
 func apply_finish_visual(raw_intensity: float, burn_intensity: float, cooked: Food, raw_food: RawFood, force_blue: bool = false) -> void:
 	if _in_plate_raw_food == null or cooked == null or cooked.mesh == null:
