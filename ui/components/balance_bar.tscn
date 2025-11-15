@@ -12,7 +12,6 @@ grow_vertical = 2
 script = ExtResource("1")
 difficulty = 2
 zone_width_ratio = 0.2
-bounce_ease = 2
 
 [node name="Center" type="Control" parent="."]
 layout_mode = 1
@@ -22,12 +21,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BarContent" type="Control" parent="Center"]
+[node name="BarContent" type="Panel" parent="Center"]
 custom_minimum_size = Vector2(0, 24)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 24.0
+grow_horizontal = 2
 
 [node name="BarBackground" type="ColorRect" parent="Center/BarContent"]
 layout_mode = 1

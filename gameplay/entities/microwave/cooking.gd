@@ -1,7 +1,6 @@
 extends Node
 
 @export var microwave: Microwave
-@export var current_wattage: int = 100
 @export var timer: Timer = null
 
 var current_zone: int = 0
@@ -19,16 +18,11 @@ var current_combo_streak: int = 0
 var _finished_early: bool = false
 
 func _ready() -> void:
-	Signalbus.microwave_settings_changed.connect(_on_microwave_settings_changed)
-	
 	timer.timeout.connect(_on_timer_timeout)
 	Signalbus.request_raw_food_cook.connect(_on_request_raw_food_cook)
 	Signalbus.balance_zone_changed.connect(_on_balance_zone_changed)
 	Signalbus.zone_space_pressed.connect(_on_zone_space_pressed)
 	set_process(true)
-
-func _on_microwave_settings_changed(_rpm: float, wattage: int) -> void:
-	current_wattage = wattage
 
 func _process(delta: float) -> void:
 	_handle_cook_progress(delta)

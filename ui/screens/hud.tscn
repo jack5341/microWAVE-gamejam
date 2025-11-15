@@ -102,47 +102,6 @@ size_flags_vertical = 8
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="WattageBar" type="VBoxContainer" parent="ControlPanel/HBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="Wattage" type="Label" parent="ControlPanel/HBoxContainer/WattageBar"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-
-[node name="VSlider" type="VSlider" parent="ControlPanel/HBoxContainer/WattageBar"]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/tick_offset = 10
-
-[node name="Label" type="Label" parent="ControlPanel/HBoxContainer/WattageBar"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
-text = "Wattage"
-horizontal_alignment = 1
-
-[node name="RPMBar" type="VBoxContainer" parent="ControlPanel/HBoxContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="RPM" type="Label" parent="ControlPanel/HBoxContainer/RPMBar"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 18
-
-[node name="VSlider" type="VSlider" parent="ControlPanel/HBoxContainer/RPMBar"]
-custom_minimum_size = Vector2(0, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="Label" type="Label" parent="ControlPanel/HBoxContainer/RPMBar"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 20
-text = "RPM"
-horizontal_alignment = 1
-
 [node name="Control" type="Control" parent="ControlPanel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -220,25 +179,16 @@ columns = 3
 layout_mode = 2
 size_flags_horizontal = 3
 name_text = "Dough"
-label_1_text = "Wattage: 105"
-label_2_text = "RPM: 95"
-label_3_text = "Temperature: 95"
 
 [node name="EggGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
 layout_mode = 2
 size_flags_horizontal = 3
 name_text = "Egg"
-label_1_text = "Wattage: 90"
-label_2_text = "RPM: 85"
-label_3_text = "Temperature: 110"
 
 [node name="SteakGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
 layout_mode = 2
 size_flags_horizontal = 3
 name_text = "Steak"
-label_1_text = "Wattage: 115"
-label_2_text = "RPM: 100"
-label_3_text = "Temperature: 105"
 
 [node name="TextBar" type="Panel" parent="."]
 visible = false

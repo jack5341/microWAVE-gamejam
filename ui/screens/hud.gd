@@ -10,11 +10,6 @@ extends Control
 @onready var dialogues_label: Label = $TextBar/Dialogues
 @onready var text_bar: Panel = $TextBar
 
-@onready var rpm_label: Label = $ControlPanel/HBoxContainer/RPMBar/RPM
-@onready var wattage_label: Label = $ControlPanel/HBoxContainer/WattageBar/Wattage
-@onready var rpm_slider: VSlider = $ControlPanel/HBoxContainer/RPMBar/VSlider
-@onready var wattage_slider: VSlider = $ControlPanel/HBoxContainer/WattageBar/VSlider
-
 @onready var combo_label: Label = $ControlPanel/HBoxContainer/Control/ComboLabel
 
 @onready var guide: CenterContainer = $Guide
@@ -53,27 +48,6 @@ func _ready() -> void:
 	
 	_update_text_bar_visibility()
 
-	if rpm_slider != null:
-		rpm_slider.min_value = 0
-		rpm_slider.max_value = 180
-		rpm_slider.step = 10
-		rpm_slider.value = 90 
-		if not rpm_slider.value_changed.is_connected(_on_rpm_changed):
-			rpm_slider.value_changed.connect(_on_rpm_changed)
-		_update_rpm_label(rpm_slider.value)
-		_emit_microwave_settings()
-	
-	# Configure Wattage slider
-	if wattage_slider != null:
-		wattage_slider.min_value = 0
-		wattage_slider.max_value = 200
-		wattage_slider.step = 10
-		wattage_slider.value = 100  # Default wattage
-		if not wattage_slider.value_changed.is_connected(_on_wattage_changed):
-			wattage_slider.value_changed.connect(_on_wattage_changed)
-		_update_wattage_label(wattage_slider.value)
-		_emit_microwave_settings()
-
 func _process(_delta: float) -> void:
 	if Global.score != last_displayed_score:
 		_update_score(Global.score)
@@ -102,27 +76,6 @@ func _on_waiting_for_finish_changed(active: bool) -> void:
 		return
 	finish_hint_label.visible = active
 	_update_text_bar_visibility()
-
-func _on_rpm_changed(value: float) -> void:
-	_update_rpm_label(value)
-	_emit_microwave_settings()
-
-func _on_wattage_changed(value: float) -> void:
-	_update_wattage_label(value)
-	_emit_microwave_settings()
-
-func _emit_microwave_settings() -> void:
-	var rpm: float = rpm_slider.value if rpm_slider != null else 90.0
-	var wattage: int = int(wattage_slider.value) if wattage_slider != null else 100
-	Signalbus.microwave_settings_changed.emit(rpm, wattage)
-
-func _update_rpm_label(value: float) -> void:
-	if rpm_label != null:
-		rpm_label.text = "%.0f RPM" % value
-
-func _update_wattage_label(value: float) -> void:
-	if wattage_label != null:
-		wattage_label.text = "%.0f W" % value
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("guide"):

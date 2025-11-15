@@ -12,12 +12,8 @@ var plate_rpm: float = 90.0
 @export var _effect_steam: Node3D = null
 
 func _ready() -> void:
-	Signalbus.microwave_settings_changed.connect(_on_microwave_settings_changed)
 	_hide_all_effects()
 	set_process(true)
-
-func _on_microwave_settings_changed(_rpm: float) -> void:
-	plate_rpm = _rpm
 
 func _process(delta: float) -> void:
 	_handle_rotate_plate(delta)
@@ -52,6 +48,9 @@ func show_raw_food(raw: RawFood) -> void:
 	_in_plate_raw_food.position = raw.mesh_position
 	if is_instance_valid(_in_plate_raw_food):
 		_in_plate_raw_food.material_override = null
+	# Set RPM from raw food data
+	if raw != null and "plate_rpm" in raw:
+		plate_rpm = raw.plate_rpm
 
 func apply_finish_visual(raw_intensity: float, burn_intensity: float, cooked: Food, raw_food: RawFood, force_blue: bool = false) -> void:
 	if _in_plate_raw_food == null or cooked == null or cooked.mesh == null:
