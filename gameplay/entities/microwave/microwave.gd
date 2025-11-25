@@ -10,6 +10,7 @@ class_name Microwave extends Node3D
 @onready var visual: Node = $Visual
 @onready var camera: Camera3D = $Camera3D
 @onready var guide_map: MeshInstance3D = $GuideMap
+@onready var decorations: Node3D = $Decorations
 
 # Guide view configuration
 @export_group("Guide View")
@@ -57,6 +58,7 @@ func _ready() -> void:
 	Signalbus.balance_zone_changed.connect(_on_zone_changed)
 	Signalbus.zone_space_pressed.connect(_on_zone_space_pressed)
 	_shake_rng.randomize()
+	_update_decoration_visibility()
 
 func _process(delta: float) -> void:
 	_handle_session_timer(delta)
@@ -174,6 +176,22 @@ func _start_camera_shake(duration: float, amplitude: float) -> void:
 	_shake_time = max(_shake_time, duration)
 	_shake_total = max(_shake_total, duration)
 	_shake_amp = max(_shake_amp, amplitude)
+
+func _update_decoration_visibility() -> void:
+	if decorations == null:
+		return
+	
+	# Decoration names that match the shop items
+	var decoration_names: Array[String] = [
+		"Rug", "Couch", "Radio", "LightCable", "LightBulb", "Katana", 
+		"AK47", "Billboard", "Fireplace", "Rug2", "BearHeadMount", 
+		"Wine1", "Wine2", "Wine3", "Glass", "Hamburger"
+	]
+	
+	for decoration_name in decoration_names:
+		var decoration_node: Node = decorations.get_node_or_null(decoration_name)
+		if decoration_node != null:
+			decoration_node.visible = Global.is_decoration_purchased(decoration_name)
 
 func _update_camera_shake(delta: float) -> void:
 	if camera == null or not shake_enabled:

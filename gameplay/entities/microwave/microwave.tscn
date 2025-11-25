@@ -27,7 +27,7 @@
 [ext_resource type="ArrayMesh" uid="uid://ic6pco7xu5qp" path="res://assets/models/decorations/bear_head_mount.res" id="25_kx577"]
 [ext_resource type="ArrayMesh" uid="uid://ls58lhbmk7x7" path="res://assets/models/decorations/wine.res" id="26_ohkdt"]
 [ext_resource type="ArrayMesh" uid="uid://bepfdhi4jnpug" path="res://assets/models/decorations/glass.res" id="27_6hih6"]
-[ext_resource type="ArrayMesh" uid="uid://cy6ycenmjrn4l" path="res://assets/models/decorations/hamburger.res" id="28_2rtb1"]
+[ext_resource type="ArrayMesh" uid="uid://0b1h20ha7l7h" path="res://assets/models/decorations/hamburger.res" id="28_2rtb1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lxap8"]
 albedo_texture = ExtResource("2_xxcka")

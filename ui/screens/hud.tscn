@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3ingre68ts7r"]
+[gd_scene load_steps=6 format=3 uid="uid://b3ingre68ts7r"]
 
 [ext_resource type="PackedScene" uid="uid://cbimj6baogiq4" path="res://ui/components/balance_bar.tscn" id="1_7tb4a"]
 [ext_resource type="Script" uid="uid://b57oxu80r7v8g" path="res://ui/screens/hud.gd" id="2_hud"]
-[ext_resource type="PackedScene" uid="uid://b5sotcvjlq5vw" path="res://ui/components/guide_item.tscn" id="3_l1baa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3ncf"]
 content_margin_left = 0.0
@@ -58,31 +57,28 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TopBar"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TopBar"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/VBoxContainer"]
 layout_direction = 1
 layout_mode = 2
 alignment = 1
 
-[node name="Score" type="Label" parent="TopBar/HBoxContainer"]
+[node name="Score" type="Label" parent="TopBar/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 46
 text = "🪙 0"
 
-[node name="Spacer" type="Control" parent="TopBar/HBoxContainer"]
+[node name="BalanceBar" parent="TopBar/VBoxContainer/HBoxContainer" instance=ExtResource("1_7tb4a")]
+custom_minimum_size = Vector2(400, 24)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 
-[node name="Countdown" type="Label" parent="TopBar/HBoxContainer"]
+[node name="Countdown" type="Label" parent="TopBar/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 46
 text = "12:20"
-
-[node name="CenterContainer" type="CenterContainer" parent="TopBar"]
-layout_mode = 2
-
-[node name="BalanceBar" parent="TopBar/CenterContainer" instance=ExtResource("1_7tb4a")]
-custom_minimum_size = Vector2(400, 24)
-layout_mode = 2
 
 [node name="ControlPanel" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -91,10 +87,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ControlPanel"]
 layout_mode = 2
@@ -129,7 +125,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="Panel" parent="Guide"]
-custom_minimum_size = Vector2(500, 400)
+custom_minimum_size = Vector2(600, 500)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_n3ncf")
 
@@ -159,36 +155,26 @@ offset_right = 20.0
 offset_bottom = 8.5
 grow_horizontal = 2
 grow_vertical = 2
-text = "Guide"
+text = "Shop"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Guide/Panel/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Guide/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Guide/Panel/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="GridContainer" type="GridContainer" parent="Guide/Panel/VBoxContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="Guide/Panel/VBoxContainer/ScrollContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 columns = 3
-
-[node name="DoughGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
-layout_mode = 2
-size_flags_horizontal = 3
-name_text = "Dough"
-
-[node name="EggGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
-layout_mode = 2
-size_flags_horizontal = 3
-name_text = "Egg"
-
-[node name="SteakGuide" parent="Guide/Panel/VBoxContainer/MarginContainer/GridContainer" instance=ExtResource("3_l1baa")]
-layout_mode = 2
-size_flags_horizontal = 3
-name_text = "Steak"
 
 [node name="TextBar" type="Panel" parent="."]
 visible = false

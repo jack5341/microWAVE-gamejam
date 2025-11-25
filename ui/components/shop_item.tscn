@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5sotcvjlq5vw"]
+[gd_scene load_steps=2 format=3 uid="uid://c8m2n4p6q9r1s3"]
 
-[ext_resource type="Script" uid="uid://chsgbqu3o5njv" path="res://ui/components/guide_item.gd" id="1_ui8te"]
+[ext_resource type="Script" path="res://ui/components/shop_item.gd" id="1_shop"]
 
 [node name="ShopItem" type="VBoxContainer"]
 theme_override_constants/separation = 4
-script = ExtResource("1_ui8te")
+script = ExtResource("1_shop")
 
 [node name="Name" type="Label" parent="."]
 layout_mode = 2
@@ -25,3 +25,4 @@ theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 text = "Buy"
+
