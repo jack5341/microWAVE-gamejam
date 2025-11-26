@@ -28,3 +28,6 @@ signal guide_mode_changed(active: bool)
 
 @warning_ignore("UNUSED_SIGNAL")
 signal zone_space_pressed(zone: int) # -1=blue, 1=red
+
+@warning_ignore("UNUSED_SIGNAL")
+signal cooking_failed(reason: String) # Emitted when cooking fails (e.g., undercooked)

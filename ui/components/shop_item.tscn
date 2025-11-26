@@ -1,33 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://5g1saa7lja37"]
+[gd_scene load_steps=4 format=3 uid="uid://5g1saa7lja37"]
 
 [ext_resource type="Script" uid="uid://3p2dynb8jqjx" path="res://ui/components/shop_item.gd" id="1_shop"]
 
-[node name="ShopItem" type="VBoxContainer"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+bg_color = Color(0.15, 0.15, 0.15, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.3, 0.3, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.2, 0.6, 0.2, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="ShopItem" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 140)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
 script = ExtResource("1_shop")
 
-[node name="Name" type="Label" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Name" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 20
+text = "Item Name"
 
-[node name="Description" type="Label" parent="."]
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.7, 0.7, 1)
 theme_override_font_sizes/font_size = 14
+text = "Item Description goes here..."
 autowrap_mode = 2
+text_overrun_behavior = 3
 
-[node name="Price" type="Label" parent="."]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Price" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 0.843137, 0, 1)
 theme_override_font_sizes/font_size = 18
+text = "🪙 100"
 
-[node name="BuyButton" type="Button" parent="."]
-custom_minimum_size = Vector2(0, 30)
+[node name="BuyButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 30)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
 text = "Buy"

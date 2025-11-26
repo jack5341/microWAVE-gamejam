@@ -16,12 +16,15 @@ var base_points: int = 10
 var current_combo_multiplier: float = 1.0
 var current_combo_streak: int = 0
 var _finished_early: bool = false
+var _cooking_failed: bool = false
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
 	Signalbus.request_raw_food_cook.connect(_on_request_raw_food_cook)
 	Signalbus.balance_zone_changed.connect(_on_balance_zone_changed)
 	Signalbus.zone_space_pressed.connect(_on_zone_space_pressed)
+	Signalbus.cooking_failed.connect(_on_cooking_failed)
+	Signalbus.combo_changed.connect(_on_combo_changed)
 	set_process(true)
 
 func _process(delta: float) -> void:
@@ -40,6 +43,7 @@ func _on_request_raw_food_cook(raw: RawFood) -> void:
 	initial_time = remaining_time
 	burn_level = 0.0
 	_finished_early = false
+	_cooking_failed = false
 	blue_rate = raw.blue_rate
 	green_rate = raw.green_rate
 	red_rate = raw.red_rate
@@ -49,6 +53,10 @@ func _on_request_raw_food_cook(raw: RawFood) -> void:
 	timer.stop()
 	if microwave.dialogues != null:
 		microwave.dialogues.start_dialogue_loop(raw.dialogue_lines)
+
+func _on_cooking_failed(_reason: String) -> void:
+	_cooking_failed = true
+	# Will be handled in _finalize_cooking
 
 func _on_timer_timeout() -> void:
 	if microwave.started:
@@ -86,17 +94,24 @@ func _handle_cook_progress(delta: float) -> void:
 func _finish_early(zone: int) -> void:
 	# Force finish state based on zone
 	_finished_early = true
-	if zone == -1:  # Blue zone - finish raw
-		remaining_time = initial_time  # Keep all remaining time = fully raw
-		burn_level = 0.0  # No burn
+	if zone == -1: # Blue zone - finish raw
+		remaining_time = initial_time # Keep all remaining time = fully raw
+		burn_level = 0.0 # No burn
 		AudioManager.play_sfx(load("res://assets/audio/sfx/raw_cooked.mp3"))
-	elif zone == 1:  # Red zone - finish burned
-		remaining_time = 0.0  # Fully cooked 
-		burn_level = burn_threshold  # Fully burned
+	elif zone == 1: # Red zone - finish burned
+		remaining_time = 0.0 # Fully cooked
+		burn_level = burn_threshold # Fully burned
 		AudioManager.play_sfx(load("res://assets/audio/sfx/burned_cooked.mp3"))
 	_finalize_cooking()
 
 func _finalize_cooking() -> void:
+	# Check cooking level from balance bar FIRST
+	var balance_bar = get_tree().get_first_node_in_group("balance_bar")
+	if balance_bar != null and balance_bar.has_method("check_cooking_level"):
+		var is_cooked: bool = balance_bar.check_cooking_level()
+		if not is_cooked:
+			_cooking_failed = true
+	
 	microwave.started = false
 	if microwave.dialogues != null:
 		microwave.dialogues.stop_dialogue_loop()
@@ -107,28 +122,44 @@ func _finalize_cooking() -> void:
 			var raw_intensity01: float
 			var burn_intensity01: float
 			
+			# Check if cooking failed due to insufficient level
+			if _cooking_failed:
+				# Cooking failed - treat as raw
+				raw_intensity01 = 1.0 # Fully raw
+				burn_intensity01 = 0.0 # Not burned
+				_finished_early = true # Mark as failed
 			# If cooking finished naturally (no early finish), make it perfect
-			if not _finished_early:
-				raw_intensity01 = 0.0  # Perfectly cooked, not raw
-				burn_intensity01 = 0.0  # Perfectly cooked, not burned
+			elif not _finished_early:
+				raw_intensity01 = 0.0 # Perfectly cooked, not raw
+				burn_intensity01 = 0.0 # Perfectly cooked, not burned
 			else:
 				# Early finish - use calculated intensities
 				raw_intensity01 = clamp(remaining_time / max(initial_time, 0.0001), 0.0, 1.0)
 				burn_intensity01 = clamp(burn_level / burn_threshold, 0.0, 1.0)
 			
-			var force_blue: bool = (current_zone == -1)
+			var force_blue: bool = (current_zone == -1) or _cooking_failed
 			if microwave.visual != null:
 				microwave.visual.apply_finish_visual(raw_intensity01, burn_intensity01, cooked, raw_food, force_blue)
 			# Calculate penalties and points based on final state
 			var points: int = 0
-			if not _finished_early:
+			if _cooking_failed:
+				# Failed due to insufficient cooking level - NO POINTS, RESET COMBO
+				points = 0
+				current_combo_streak = 0
+				current_combo_multiplier = 1.0
+				Signalbus.combo_changed.emit(0, 1.0)
+				AudioManager.play_sfx(load("res://assets/audio/sfx/raw_cooked.mp3"))
+			elif not _finished_early:
 				# Perfect cooked - full points, no penalties
-				var quality_ratio: float = 1.0  # Perfect quality
+				var quality_ratio: float = 1.0 # Perfect quality
 				points = int(round(float(base_points) * quality_ratio * max(1.0, current_combo_multiplier)))
 				AudioManager.play_sfx(load("res://assets/audio/sfx/perfect_food.mp3"))
 			else:
-				# Early finish (failed) - no points
+				# Early finish (failed) - no points, reset combo
 				points = 0
+				current_combo_streak = 0
+				current_combo_multiplier = 1.0
+				Signalbus.combo_changed.emit(0, 1.0)
 			Global.score += max(0, points)
 			Signalbus.food_cooked.emit(cooked)
 			Signalbus.score_changed.emit(Global.score)
