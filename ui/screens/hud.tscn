@@ -90,6 +90,22 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
+[node name="VBoxContainer" type="VBoxContainer" parent="ControlPanel"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="ControlPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Hold [G] to open shop"
+
+[node name="Label2" type="Label" parent="ControlPanel/VBoxContainer"]
+layout_mode = 2
+text = "Hit [Space] when the marker enters 
+the green zone to cook your meal perfectly"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="ControlPanel"]
 layout_mode = 2
 size_flags_vertical = 8

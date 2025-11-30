@@ -49,6 +49,7 @@ var _shake_rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 var _session_over: bool = false
 var _time_accumulator: float = 0.0
+var _is_paused: bool = false
 
 func _ready() -> void:
 	AudioManager.play_music_from_path("res://assets/audio/music/lofi.mp3")
@@ -61,8 +62,45 @@ func _ready() -> void:
 	_update_decoration_visibility()
 
 func _process(delta: float) -> void:
-	_handle_session_timer(delta)
-	_update_camera_shake(delta)
+	_handle_pause_input()
+	if not _is_paused:
+		_handle_session_timer(delta)
+		_update_camera_shake(delta)
+
+func _handle_pause_input() -> void:
+	if Input.is_action_just_pressed("ui_cancel"): # ESC key
+		_toggle_pause()
+
+func _toggle_pause() -> void:
+	_is_paused = not _is_paused
+	get_tree().paused = _is_paused
+	
+	if _is_paused:
+		_show_pause_menu()
+	else:
+		_hide_pause_menu()
+
+func _show_pause_menu() -> void:
+	var pause_scene: PackedScene = load("res://ui/screens/pause.tscn")
+	if pause_scene:
+		var overlay: Control = pause_scene.instantiate()
+		overlay.name = "PauseMenu"
+		var hud_layer: CanvasLayer = get_node_or_null("HudLayer")
+		if hud_layer:
+			hud_layer.add_child(overlay)
+		else:
+			add_child(overlay)
+
+func _hide_pause_menu() -> void:
+	var hud_layer: CanvasLayer = get_node_or_null("HudLayer")
+	var pause_menu: Node = null
+	if hud_layer:
+		pause_menu = hud_layer.get_node_or_null("PauseMenu")
+	else:
+		pause_menu = get_node_or_null("PauseMenu")
+	
+	if pause_menu:
+		pause_menu.queue_free()
 
 func get_current_zone() -> int:
 	if cooking != null and "current_zone" in cooking:
@@ -167,9 +205,9 @@ func _on_zone_changed(_zone: int) -> void:
 func _on_zone_space_pressed(zone: int) -> void:
 	if not shake_enabled:
 		return
-	if zone == 1:  # RED
+	if zone == 1: # RED
 		_start_camera_shake(shake_duration_red, shake_amplitude_red)
-	elif zone == -1:  # BLUE
+	elif zone == -1: # BLUE
 		_start_camera_shake(shake_duration_blue, shake_amplitude_blue)
 
 func _start_camera_shake(duration: float, amplitude: float) -> void:
@@ -183,8 +221,8 @@ func _update_decoration_visibility() -> void:
 	
 	# Decoration names that match the shop items
 	var decoration_names: Array[String] = [
-		"Rug", "Couch", "Radio", "LightCable", "LightBulb", "Katana", 
-		"AK47", "Billboard", "Fireplace", "Rug2", "BearHeadMount", 
+		"Rug", "Couch", "Radio", "LightCable", "LightBulb", "Katana",
+		"AK47", "Billboard", "Fireplace", "Rug2", "BearHeadMount",
 		"Wine1", "Wine2", "Wine3", "Glass", "Hamburger"
 	]
 	

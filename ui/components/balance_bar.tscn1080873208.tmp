@@ -26,6 +26,8 @@ grow_vertical = 2
 script = ExtResource("1")
 difficulty = 2
 zone_width_ratio = 0.2
+combo_max_multiplier = null
+combo_growth_rate = null
 
 [node name="Center" type="CenterContainer" parent="."]
 layout_mode = 1

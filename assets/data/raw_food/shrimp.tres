@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://h3bwunjc8cwm"]
+
+[ext_resource type="Resource" uid="uid://cookedshrimp0001" path="res://assets/data/food/cooked_shrimp.tres" id="1_p6o40"]
+[ext_resource type="ArrayMesh" uid="uid://crfgs2sw1hh1y" path="res://assets/models/kitchen/raw_foods/steak.res" id="1_v7nms"]
+[ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
+
+[resource]
+script = ExtResource("1_x6geo")
+time_to_cook = 5.0
+difficulty_to_cook = 4
+base_points = 35
+blue_rate = 0.5
+green_rate = 1.0
+red_rate = 2.0
+burn_time_threshold = 1.5
+burn_temprature = 110
+raw_temprature = 5
+plate_rpm = 95.0
+power_level = 1.1
+temperature_level = 1.1
+dialogue_lines = Array[String]([])
+food = ExtResource("1_p6o40")
+balance_speed = 1.4
+name = "Shrimp"
+mesh = ExtResource("1_v7nms")
+mesh_scale = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://dkp0ct66kh5lp"

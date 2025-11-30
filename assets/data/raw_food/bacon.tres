@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://cw0qytm30hf6o"]
+
+[ext_resource type="Resource" uid="uid://crispybacon00001" path="res://assets/data/food/crispy_bacon.tres" id="1_p6o40"]
+[ext_resource type="ArrayMesh" uid="uid://crfgs2sw1hh1y" path="res://assets/models/kitchen/raw_foods/steak.res" id="1_v7nms"]
+[ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
+
+[resource]
+script = ExtResource("1_x6geo")
+time_to_cook = 4.5
+difficulty_to_cook = 3
+base_points = 20
+blue_rate = 0.6
+green_rate = 1.2
+red_rate = 2.2
+burn_time_threshold = 1.2
+burn_temprature = 130
+raw_temprature = 8
+plate_rpm = 80.0
+power_level = 1.2
+temperature_level = 1.2
+dialogue_lines = Array[String]([])
+food = ExtResource("1_p6o40")
+balance_speed = 1.3
+name = "Bacon"
+mesh = ExtResource("1_v7nms")
+mesh_scale = Vector3(15, 15, 15)
+metadata/_custom_type_script = "uid://dkp0ct66kh5lp"

@@ -17,7 +17,6 @@ enum Zone {BLUE = -1, GREEN = 0, RED = 1}
 @onready var right_spacer: Control = $"Center/BarContent/ZoneHBox/RightSpacer"
 
 @onready var hint_label: Label = $Center/HintLabel
-@onready var cooking_progress: ProgressBar = $Center/CookingProgress
 
 var arrow_ratio: float = 0.0
 var zone_left_global: float = 0.0
@@ -46,10 +45,6 @@ func _ready() -> void:
 	Signalbus.set_balance_bar_difficulty.connect(_on_set_balance_bar_difficulty)
 	Signalbus.request_raw_food_cook.connect(_on_request_raw_food_cook)
 	Signalbus.cooking_cycle_completed.connect(_on_cooking_cycle_completed)
-	
-	if cooking_progress:
-		cooking_progress.value = 0.0
-		cooking_progress.max_value = 100.0
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
@@ -88,9 +83,6 @@ func _process(delta: float) -> void:
 			streak = 0
 			# Optional: Decrease level on fail? For now, just no increase.
 		
-		if cooking_progress:
-			cooking_progress.value = current_cooking_level
-			
 		Signalbus.combo_changed.emit(streak, _compute_multiplier(streak))
 		# Trigger camera shake if space pressed in red or blue zone
 		if current_zone_at_press == Zone.RED or current_zone_at_press == Zone.BLUE:
@@ -159,9 +151,7 @@ func _on_request_raw_food_cook(raw: RawFood) -> void:
 		
 		# Reset cooking level
 		current_cooking_level = 0.0
-		if cooking_progress:
-			cooking_progress.value = 0.0
-
+		
 func _on_cooking_cycle_completed() -> void:
 	combo_input_enabled = false
 	# Reset arrow position when cooking stops
