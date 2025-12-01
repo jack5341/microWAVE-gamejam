@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" path="res://assets/data/food/crispy_bacon.tres" id="1_p6o40"]
 [ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
-[ext_resource type="ArrayMesh" uid="uid://dt1gk24np5abq" path="res://assets/models/kitchen/raw_foods/bacon.res" id="2_pb01s"]
+[ext_resource type="ArrayMesh" uid="uid://bvy8sojotbj47" path="res://assets/models/kitchen/raw_foods/bacon.res" id="2_pb01s"]
 
 [resource]
 script = ExtResource("1_x6geo")

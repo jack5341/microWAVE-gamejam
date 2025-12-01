@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://baq1px3j3d31j"]
 
-[ext_resource type="Resource" path="res://assets/data/food/burger.tres" id="1_p6o40"]
+[ext_resource type="Resource" uid="uid://bbc0kbb6nae07" path="res://assets/data/food/burger.tres" id="1_p6o40"]
 [ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
-[ext_resource type="ArrayMesh" uid="uid://cb326twu7svr" path="res://assets/models/kitchen/raw_foods/burger_patty.res" id="2_ie8be"]
+[ext_resource type="ArrayMesh" uid="uid://cvallydqbjqup" path="res://assets/models/kitchen/raw_foods/burger_patty.res" id="2_ie8be"]
 
 [resource]
 script = ExtResource("1_x6geo")

@@ -1,12 +1,11 @@
 [gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://crnniag2jnydu"]
 
-[ext_resource type="Resource" path="res://assets/data/food/toast.tres" id="1_p6o40"]
+[ext_resource type="Resource" uid="uid://du8js2xhtjis" path="res://assets/data/food/toast.tres" id="1_p6o40"]
 [ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
-[ext_resource type="ArrayMesh" uid="uid://b63lvnru8t78q" path="res://assets/models/kitchen/raw_foods/french_bread.res" id="2_08fww"]
+[ext_resource type="ArrayMesh" uid="uid://bqym0qdspae1l" path="res://assets/models/kitchen/raw_foods/french_bread.res" id="2_08fww"]
 
 [resource]
 script = ExtResource("1_x6geo")
-time_to_cook = 10.0
 base_points = 8
 blue_rate = 0.9
 green_rate = 1.3

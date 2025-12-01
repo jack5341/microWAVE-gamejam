@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://cf6cj3cyviign"]
 
-[ext_resource type="Resource" path="res://assets/data/food/hot_dog.tres" id="1_p6o40"]
+[ext_resource type="Resource" uid="uid://jumn8pwf5j8r" path="res://assets/data/food/hot_dog.tres" id="1_p6o40"]
 [ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
-[ext_resource type="ArrayMesh" uid="uid://bgmy7kos7jyr4" path="res://assets/models/kitchen/raw_foods/sausage.res" id="2_nasyo"]
+[ext_resource type="ArrayMesh" uid="uid://cud3kajydiicq" path="res://assets/models/kitchen/raw_foods/sausage.res" id="2_nasyo"]
 
 [resource]
 script = ExtResource("1_x6geo")
@@ -19,6 +19,6 @@ food = ExtResource("1_p6o40")
 balance_speed = 1.1
 name = "Sausage"
 mesh = ExtResource("2_nasyo")
-mesh_scale = Vector3(0, -0.002, 0)
-mesh_position = Vector3(-0.015, -0.015, -0.015)
+mesh_scale = Vector3(0.022, 0.022, 0.022)
+mesh_position = Vector3(0, 0.0006634742, 0)
 metadata/_custom_type_script = "uid://dkp0ct66kh5lp"

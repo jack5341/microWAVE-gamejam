@@ -1,13 +1,12 @@
-[gd_resource type="Resource" script_class="Food" load_steps=3 format=3 uid="uid://ch2l32llh0f0k"]
+[gd_resource type="Resource" script_class="Food" load_steps=3 format=3 uid="uid://dc5qo12tryg5j"]
 
 [ext_resource type="Script" uid="uid://dqh6hctw7yuub" path="res://assets/data/food/food.gd" id="1_inkd8"]
-[ext_resource type="ArrayMesh" uid="uid://bpc2ub0r3jxm7" path="res://assets/models/kitchen/foods/meatballs.res" id="1_s1vkr"]
+[ext_resource type="ArrayMesh" uid="uid://ctq5yvamyc8s" path="res://assets/models/kitchen/foods/grilled_bacon.res" id="1_o56l8"]
 
 [resource]
 script = ExtResource("1_inkd8")
-mesh = ExtResource("1_s1vkr")
-mesh_position = Vector3(0, 0.046559922, 0)
-max_quality = 5
-quality = 1
 price = 140
+mesh = ExtResource("1_o56l8")
+mesh_scale = Vector3(10, 10, 10)
+mesh_position = Vector3(0, 0.0008480847, 0)
 metadata/_custom_type_script = "uid://dqh6hctw7yuub"

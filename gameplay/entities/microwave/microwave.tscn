@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dti6qqmj1vp6j" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_04.png" id="2_glk8q"]
 [ext_resource type="Texture2D" uid="uid://v125ky6htoku" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_01.png" id="2_xxcka"]
 [ext_resource type="PackedScene" uid="uid://b3ingre68ts7r" path="res://ui/screens/hud.tscn" id="4_2katx"]
-[ext_resource type="ArrayMesh" uid="uid://dt1gk24np5abq" path="res://assets/models/kitchen/raw_foods/bacon.res" id="4_av13l"]
+[ext_resource type="ArrayMesh" uid="uid://cud3kajydiicq" path="res://assets/models/kitchen/raw_foods/sausage.res" id="4_av13l"]
 [ext_resource type="PackedScene" uid="uid://bsh1srex64x0l" path="res://assets/models/effects/burn.tscn" id="4_g00tf"]
 [ext_resource type="PackedScene" uid="uid://efrsxylstakv" path="res://assets/models/effects/cold.tscn" id="5_2rnsc"]
 [ext_resource type="Texture2D" uid="uid://cuylda24lvm6p" path="res://addons/kenney_prototype-textures/PNG/Light/texture_11.png" id="5_lxap8"]
@@ -93,7 +93,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15294313, 0)
 mesh = ExtResource("21_8pagl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plate"]
-transform = Transform3D(0.035, 0, 0, 0, 0.035, 0, 0, 0, 0.035, 0, -0.005743593, 0)
+transform = Transform3D(0.022, 0, 0, 0, 0.022, 0, 0, 0, 0.022, 0, 0.0006634742, 0)
 mesh = ExtResource("4_av13l")
 skeleton = NodePath("")
 

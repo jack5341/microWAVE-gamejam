@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://k7xxurpykb4a"]
 
-[ext_resource type="Resource" path="res://assets/data/food/melted_cheese.tres" id="1_p6o40"]
+[ext_resource type="Resource" uid="uid://chmpyqai7arv8" path="res://assets/data/food/melted_cheese.tres" id="1_p6o40"]
 [ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
-[ext_resource type="ArrayMesh" uid="uid://b1wsgxqigspvv" path="res://assets/models/kitchen/raw_foods/cheese.res" id="2_er26d"]
+[ext_resource type="ArrayMesh" uid="uid://btvt14njyoy6h" path="res://assets/models/kitchen/raw_foods/cheese.res" id="2_er26d"]
 
 [resource]
 script = ExtResource("1_x6geo")
