@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cy7j0d0ake7ly"]
+[gd_scene load_steps=24 format=3 uid="uid://cy7j0d0ake7ly"]
 
 [ext_resource type="Texture2D" uid="uid://v125ky6htoku" path="res://addons/kenney_prototype-textures/PNG/Dark/texture_01.png" id="1_s0xps"]
 [ext_resource type="PackedScene" uid="uid://cw8mjn832rl2y" path="res://gameplay/entities/microwave/microwave.tscn" id="2_gbsl3"]
@@ -7,6 +7,17 @@
 [ext_resource type="Resource" uid="uid://mn7f0fxf5j87" path="res://assets/data/raw_food/dough.tres" id="5_o0bc2"]
 [ext_resource type="Resource" uid="uid://dg08vuxhag7xp" path="res://assets/data/raw_food/steak.tres" id="6_o0bc2"]
 [ext_resource type="Resource" uid="uid://dojy1kgyjpebx" path="res://assets/data/raw_food/egg.tres" id="7_f0akt"]
+[ext_resource type="Resource" uid="uid://btaw5ks0q7iyy" path="res://assets/data/raw_food/fish.tres" id="8_fish"]
+[ext_resource type="Resource" uid="uid://br0pq8shcq3vo" path="res://assets/data/raw_food/chicken.tres" id="9_chicken"]
+[ext_resource type="Resource" uid="uid://b4yv48j6g5r1q" path="res://assets/data/raw_food/burger_patty.tres" id="10_burger"]
+[ext_resource type="Resource" uid="uid://sausage00000001" path="res://assets/data/raw_food/sausage.tres" id="11_sausage"]
+[ext_resource type="Resource" uid="uid://corn00000000001" path="res://assets/data/raw_food/corn.tres" id="12_corn"]
+[ext_resource type="Resource" uid="uid://potato000000001" path="res://assets/data/raw_food/potato.tres" id="13_potato"]
+[ext_resource type="Resource" uid="uid://bread00000000001" path="res://assets/data/raw_food/bread.tres" id="14_bread"]
+[ext_resource type="Resource" uid="uid://cheese0000000001" path="res://assets/data/raw_food/cheese.tres" id="15_cheese"]
+[ext_resource type="Resource" uid="uid://broccoli00000001" path="res://assets/data/raw_food/broccoli.tres" id="16_broccoli"]
+[ext_resource type="Resource" uid="uid://shrimp0000000001" path="res://assets/data/raw_food/shrimp.tres" id="17_shrimp"]
+[ext_resource type="Resource" uid="uid://bacon00000000001" path="res://assets/data/raw_food/bacon.tres" id="18_bacon"]
 [ext_resource type="Script" uid="uid://dpsysto2gc0tr" path="res://core/managers/audio_manager.gd" id="8_36fb2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s0xps"]
@@ -45,7 +56,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7634126, 0)
 script = ExtResource("3_o7ecn")
 max_queue_size = 100
 cycles_to_run = 100
-available_raw_foods = Array[ExtResource("4_vcn57")]([ExtResource("5_o0bc2"), ExtResource("6_o0bc2"), ExtResource("7_f0akt")])
+available_raw_foods = Array[ExtResource("4_vcn57")]([ExtResource("5_o0bc2"), ExtResource("6_o0bc2"), ExtResource("7_f0akt"), ExtResource("8_fish"), ExtResource("9_chicken"), ExtResource("10_burger"), ExtResource("11_sausage"), ExtResource("12_corn"), ExtResource("13_potato"), ExtResource("14_bread"), ExtResource("15_cheese"), ExtResource("16_broccoli"), ExtResource("17_shrimp"), ExtResource("18_bacon")])
 
 [node name="AudioManager" type="Node" parent="."]
 script = ExtResource("8_36fb2")

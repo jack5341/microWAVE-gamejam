@@ -68,7 +68,7 @@ alignment = 1
 [node name="Score" type="Label" parent="TopBar/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 46
-text = "🪙 0"
+text = "Coin: 0"
 
 [node name="BalanceBar" parent="TopBar/VBoxContainer/HBoxContainer" instance=ExtResource("1_7tb4a")]
 layout_mode = 2

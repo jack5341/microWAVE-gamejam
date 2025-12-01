@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_x6geo")
-time_to_cook = 7.8
+time_to_cook = 15.0
 difficulty_to_cook = 3
 base_points = 20
 blue_rate = 0.7

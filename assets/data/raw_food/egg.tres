@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_rpj8s")
-time_to_cook = 4.5
+time_to_cook = 10.0
 base_points = 12
 blue_rate = 0.55
 green_rate = 0.95

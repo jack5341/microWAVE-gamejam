@@ -1,14 +1,12 @@
-[gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://dk82c3mekfhmm"]
+[gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://b33hbuergx1eo"]
 
-[ext_resource type="Resource" uid="uid://popcorn0000001" path="res://assets/data/food/popcorn.tres" id="1_p6o40"]
-[ext_resource type="ArrayMesh" uid="uid://crfgs2sw1hh1y" path="res://assets/models/kitchen/raw_foods/steak.res" id="1_v7nms"]
+[ext_resource type="Resource" path="res://assets/data/food/popcorn.tres" id="1_p6o40"]
 [ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
+[ext_resource type="ArrayMesh" uid="uid://c5ymqlu3p04mw" path="res://assets/models/kitchen/raw_foods/corn.res" id="2_0xacw"]
 
 [resource]
 script = ExtResource("1_x6geo")
-time_to_cook = 3.0
-difficulty_to_cook = 1
-base_points = 10
+time_to_cook = 10.0
 blue_rate = 0.8
 green_rate = 1.2
 red_rate = 1.5
@@ -18,10 +16,9 @@ raw_temprature = 20
 plate_rpm = 100.0
 power_level = 0.9
 temperature_level = 0.9
-dialogue_lines = Array[String]([])
 food = ExtResource("1_p6o40")
-balance_speed = 1.0
 name = "Corn"
-mesh = ExtResource("1_v7nms")
-mesh_scale = Vector3(15, 15, 15)
+mesh = ExtResource("2_0xacw")
+mesh_scale = Vector3(0.048, 0.048, 0.048)
+mesh_position = Vector3(0, 0.06401898, 0)
 metadata/_custom_type_script = "uid://dkp0ct66kh5lp"

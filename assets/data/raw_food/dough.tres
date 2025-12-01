@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource("1_lycoc")
-time_to_cook = 9.2
+time_to_cook = 12.0
 difficulty_to_cook = 2
 base_points = 15
 blue_rate = 0.65

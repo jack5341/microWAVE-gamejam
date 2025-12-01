@@ -22,7 +22,7 @@ func _update_display() -> void:
 	if name_label != null and decoration_name != "":
 		name_label.text = decoration_name
 	if price_label != null:
-		price_label.text = "🪙 %d" % price
+		price_label.text = "Coin:  %d" % price
 	if description_label != null and description != "":
 		description_label.text = description
 	_update_button_state()

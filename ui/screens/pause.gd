@@ -19,6 +19,8 @@ func _on_resume_pressed() -> void:
 
 func _on_restart_pressed() -> void:
 	# Unpause and reload the scene
+	Global.score = 0
+	Global.time_remaining = 180 # 3 minutes default
 	get_tree().paused = false
 	get_tree().reload_current_scene()
 

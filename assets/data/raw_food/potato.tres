@@ -1,27 +1,22 @@
-[gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://cgj58kxp50plo"]
+[gd_resource type="Resource" script_class="RawFood" load_steps=4 format=3 uid="uid://drlc0rjdy306b"]
 
-[ext_resource type="Resource" uid="uid://bakedpotato001" path="res://assets/data/food/baked_potato.tres" id="1_p6o40"]
-[ext_resource type="ArrayMesh" uid="uid://crfgs2sw1hh1y" path="res://assets/models/kitchen/raw_foods/steak.res" id="1_v7nms"]
+[ext_resource type="Resource" path="res://assets/data/food/baked_potato.tres" id="1_p6o40"]
 [ext_resource type="Script" uid="uid://dkp0ct66kh5lp" path="res://assets/data/raw_food/raw_food.gd" id="1_x6geo"]
+[ext_resource type="ArrayMesh" uid="uid://ck7bnoh0jtpp1" path="res://assets/models/kitchen/raw_foods/patato.res" id="2_mkoy4"]
 
 [resource]
 script = ExtResource("1_x6geo")
-time_to_cook = 9.0
+time_to_cook = 16.0
 difficulty_to_cook = 2
 base_points = 12
-blue_rate = 0.6
-green_rate = 1.0
 red_rate = 1.4
 burn_time_threshold = 3.5
-burn_temprature = 100
 raw_temprature = 15
 plate_rpm = 70.0
-power_level = 1.0
-temperature_level = 1.0
-dialogue_lines = Array[String]([])
 food = ExtResource("1_p6o40")
 balance_speed = 0.9
 name = "Potato"
-mesh = ExtResource("1_v7nms")
-mesh_scale = Vector3(15, 15, 15)
+mesh = ExtResource("2_mkoy4")
+mesh_scale = Vector3(10, 10, 1)
+mesh_position = Vector3(0, 0.025509655, 0)
 metadata/_custom_type_script = "uid://dkp0ct66kh5lp"
